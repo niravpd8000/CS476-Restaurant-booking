@@ -1,0 +1,26 @@
+.progressBar {
+  @media only screen and (min-width: 768px) {
+    width: 561px;
+
+  }
+
+  .progress {
+    background-color: #E5E5E5;
+    height: auto;
+
+    .progress-bar {
+      border: 3px solid #2D1FEC;
+    }
+  }
+
+  .label {
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    color: #828282;
+  }
+
+
+}

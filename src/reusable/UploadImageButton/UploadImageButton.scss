@@ -1,0 +1,26 @@
+.uploadImageButton {
+
+  .change {
+    font-size: 15px;
+    line-height: 18px;
+    color: #BDBDBD;
+    cursor: pointer;
+    margin-top: 23px;
+  }
+
+  .uploadImageBox {
+    @media only screen and (min-width: 768px) {
+      width: 424px;
+    }
+
+    .button-div {
+      margin-top: 8px;
+    }
+
+    width: 100%;
+    height: 44px;
+    background: #F2F2F2;
+    border-radius: 4px;
+  }
+
+}

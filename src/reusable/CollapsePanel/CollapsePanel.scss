@@ -1,0 +1,33 @@
+.collapse-panel {
+  min-height: 96px;
+
+  .collapse-heading {
+    font-weight: bold;
+    font-size: 17px;
+    color: #000000;
+  }
+
+  .subHeader {
+    font-size: 15px;
+    color: #4F4F4F;
+  }
+
+  .ml-2px {
+    margin-left: 2px;
+  }
+
+  .collapse-hide {
+    font-family: Roboto;
+    font-size: 17px;
+    color: #4F4F4F;
+  }
+
+  .mainDivider {
+    opacity: 0.2;
+    border: 1px solid #000000;
+  }
+
+  .lock-icon {
+    margin-left: 14px;
+  }
+}

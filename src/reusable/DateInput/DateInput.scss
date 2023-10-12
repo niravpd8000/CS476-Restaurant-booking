@@ -1,0 +1,21 @@
+.date-input {
+  .ant-picker {
+    font-size: 15px;
+    color: #000000;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    height: 40px;
+
+    .ant-picker-input {
+      &:before {
+        content: url('../../assets/icons/calender.png');
+        margin-right: 20px;
+        line-height: 0;
+      }
+    }
+  }
+
+  .ant-picker-focused {
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,79 @@
+.customBreadcrumbBar {
+  @media only screen and (max-width: 1365px) {
+    margin-bottom: 10px;
+  }
+
+  button:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
+  }
+
+  .breadcrumb {
+    padding: 0;
+    margin-bottom: unset;
+    @media only screen and (max-width: 768px) {
+      justify-content: center;
+    }
+    border-bottom-style: none;
+    padding-left: unset;
+
+    ol {
+      padding-left: unset;
+    }
+
+    .c-subheader-nav {
+      background: unset;
+      border-bottom: unset;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 19px;
+
+      .active {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333333;
+        flex: none;
+        order: 2;
+        flex-grow: 0;
+      }
+
+      li {
+        a {
+          color: #828282;
+          margin-bottom: 3px;
+        }
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        content: url("../../assets/icons/RigthArrow.svg") !important;
+      }
+    }
+
+    .subLine {
+      margin-left: 16px;
+      position: absolute;
+      top: 52px;
+      @media only screen and (max-width: 768px) {
+        top: 40px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .rightDiv {
+    //margin-bottom: 12px;
+    height: available;
+    //justify-content: end;
+    text-align: end;
+    @media only screen and (max-width: 768px) {
+      text-align: center;
+      margin-top: 10px;
+      //justify-content: center;
+    }
+    @media only screen and (max-width: 480px) {
+      margin-top: 20px;
+
+    }
+
+  }
+}
+  
