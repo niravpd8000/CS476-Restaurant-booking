@@ -1,0 +1,14 @@
+.textAreaForm {
+  textarea {
+    resize: none;
+  }
+  .form-group {
+    .error {
+      border: 1px solid #FF4848;
+    }
+
+    .error-label {
+      color: #FF4848 !important;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.lightBlueButton {
+  background: #E8F1F8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  text-align: center;
+  padding: 11px 15.7px;
+  color: #202E55;
+
+  &.btn:focus {
+    box-shadow: unset;
+  }
+
+  &.no-margin {
+    margin-bottom: 0;
+  }
+}

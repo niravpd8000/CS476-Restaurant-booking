@@ -1,0 +1,130 @@
+.custom-modal {
+  .modal-dialog {
+    .modal-content {
+      border: 1px solid #e0e0e0;
+      padding: 25px 20px 0;
+      border-radius: 8px;
+
+      .md-header {
+        font-weight: bold;
+        font-size: 15px;
+        color: #000000;
+        border-bottom: 1px solid #bdbdbd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .md-footer {
+      border-top: 1px solid #bdbdbd;
+
+      .submit-btn {
+        padding: 10px 54px;
+        color: #ffffff;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .cancel-btn {
+        border: none;
+        margin-right: 20px;
+        padding: 10px 29px;
+
+        &.btn:focus {
+          box-shadow: unset;
+        }
+      }
+    }
+
+    .workflow-box {
+      cursor: pointer;
+    }
+
+    .workflow-box.in-active {
+      border: 1px solid white;
+    }
+
+    .workflow-box.active {
+      border: 1px solid #2eb85c;
+    }
+  }
+
+  .input-group {
+    &.price {
+      margin-top: 6px;
+
+      .form-control {
+        border-radius: 4px !important;
+        margin-right: 3px;
+      }
+
+      .form-control {
+        margin-left: 3px !important;
+      }
+    }
+  }
+
+  .location-model-content {
+    padding-right: 91px !important;
+
+    .form-control {
+      color: black;
+    }
+
+    textarea.form-control {
+      height: 58px;
+    }
+
+    input[type="text"] {
+      width: 194px;
+    }
+
+    .google-link {
+      color: #2d1fec;
+      font-size: 15px;
+    }
+
+    .form-control::-webkit-input-placeholder {
+      color: black;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-modal {
+    .modal-dialog {
+      .workflow-box.col-md-6 {
+        flex: 0 0 50%;
+        max-width: 49%;
+      }
+    }
+  }
+}
+
+.width-1000 {
+  @media (min-width: 768px) {
+    .modal-dialog {
+      max-width: 1050px;
+    }
+  }
+}
+
+.width-full {
+  .modal-dialog {
+    max-width: 1050px;
+
+    .modal-content {
+      height: 825px !important;
+    }
+  }
+}
+
+.loadingModal {
+  position: absolute !important;
+
+  .spin {
+    left: 50% !important;
+  }
+}
