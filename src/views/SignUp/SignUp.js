@@ -6,8 +6,14 @@ import SettingBox from "../../reusable/SettingBox";
 import {Col, Row} from "antd";
 
 const SignUp = (props) => {
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const [state, setState] = useState({
+        firstName:"",
+        lastname:"",
+        phone:"",
+        email:"",
+        password:"",
+        confirmPassword:""
+    });
 
 
     return (
@@ -17,37 +23,37 @@ const SignUp = (props) => {
                     <div align="left">
                         <span className='fs-20 lh-23 fw-bold mt-30 mb-20 '>Sign Up</span>
                         <TextField errorMsg="First Name" required label="First Name"
-                                   value={userName}
+                                   value={state.firstName}
                                    name="firstName"
-                                   onChange={(e) => setUserName(e.target.value)}
+                                   onChange={(e) => setState({...state, [e.target.name]:e.target.value})}
                                    placeholder="Enter First Name"/>
                         
                         <TextField errorMsg="Last Name" required label="Last Name"
-                                   value={userName}
+                                   value={state.lastname}
                                    name="lastName"
-                                   onChange={(e) => setUserName(e.target.value)}
+                                   onChange={(e) => setState({...state, [e.target.name]:e.target.value})}
                                    placeholder="Enter Last Name "/>
                         
                         <TextField errorMsg="Mobile number" required label="Phone number"
-                                   value={userName}
+                                   value={state.phone}
                                    name="phone"
-                                   onChange={(e) => setUserName(e.target.value)}
+                                   onChange={(e) => setState({...state, [e.target.name]:e.target.value})}
                                    placeholder="Enter phone number "/>
                         
                         <TextField errorMsg="Email" required label="Email"
-                                   value={userName}
-                                   name="userName"
-                                   onChange={(e) => setUserName(e.target.value)}
+                                   value={state.email}
+                                   name="email"
+                                   onChange={(e) => setState({...state, [e.target.name]:e.target.value})}
                                    placeholder="Enter Email"/>
                         <TextField errorMsg="Password"
                             // type="password"
-                                   required label="Password" value={password} name="password"
-                                   onChange={(e) => setPassword(e.target.value)}
+                                   required label="Password" value={state.password} name="password"
+                                   onChange={(e) => setState({...state, [e.target.name]:e.target.value})}
                                    placeholder="Enter password"/>
                         <TextField errorMsg="Password"
                             // type="password"
-                                   required label="Confirm Password" value={password} name="confirm_password"
-                                   onChange={(e) => setPassword(e.target.value)}
+                                   required label="Confirm Password" value={state.confirmPassword} name="confirmPassword"
+                                   onChange={(e) => setState({...state, [e.target.name]:e.target.value, ...state})}
                                    placeholder="Enter Confirm password"/>
                         <div align="center">
                             <GreenButton className='btn-signIn' onClick={() => {
