@@ -1,0 +1,176 @@
+.dashboard-wrapper {
+  .filter-btn {
+    min-width: 94px;
+    max-width: 94px;
+    background-color: white;
+    margin-left: 20px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding: 6px 14px;
+
+    &:hover {
+      background-color: #ecf0e7;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .section-title {
+    font-weight: bold;
+    font-size: 15px;
+    color: #000000;
+    opacity: 0.8;
+  }
+
+  .work-card {
+    color: white !important;
+    display: flex;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 6px;
+
+    .bg-circle-img {
+      background: #ffffff47;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-width: 25px;
+      }
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 30px;
+      color: #FFFFFF;
+    }
+
+    .sub-title {
+      font-size: 13px;
+      color: #FFFFFF;
+      opacity: 0.8;
+    }
+
+    .ant-card-body {
+      width: 100%;
+    }
+
+    h3 {
+      color: white;
+    }
+
+    &.work-order {
+      background: #FF4848;
+    }
+
+    &.organization {
+      background: #468AF1;
+    }
+
+    &.warehouse {
+      background: #54E08F;
+    }
+
+    &.assets {
+      background: #F2994A;
+    }
+  }
+
+  .stock-assets {
+    height: 100%;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stock-assets-list {
+      .ant-card-body {
+        padding: 15px;
+      }
+    }
+  }
+
+  .order-compare {
+    .total-type {
+      text-align: center;
+      margin-top: 20px;
+      width: 200px;
+
+      img {
+        max-width: 25px;
+      }
+
+      h1 {
+        font-size: 25px;
+
+        &.open {
+          color: #9B51E0;
+        }
+
+        &.completed {
+          color: #27AE60;
+        }
+
+        &.attention {
+          color: #2D9CDB;
+        }
+
+        &.unassigned {
+          color: #F2994A;
+        }
+      }
+    }
+  }
+
+  .work-order-chart {
+    overflow-y: auto;
+    color: #828282;
+    height: 100%;
+
+    .status-point {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+  }
+
+  .selection-date {
+    .selectMenu {
+      .form-group {
+        .form-control {
+          height: 40px;
+          border: 1px solid #E0E0E0;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .selectMenu {
+    &.month-dropdown {
+      .form-group {
+        margin: 0;
+
+        .down-arrow {
+          top: 2px !important;
+        }
+
+        .form-control {
+          width: 147px !important;
+          height: 40px;
+          border: 1px solid #E0E0E0;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

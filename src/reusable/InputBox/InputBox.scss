@@ -1,0 +1,108 @@
+.inputBox {
+  @media only screen and (min-width: 768px) {
+    width: 465px;
+    padding-right: 47px;
+  }
+  min-height: 632px;
+  left: 256px;
+  top: 202px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 8px;
+  margin-top: 20px;
+  padding: 20px;
+
+  .heading {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    color: #4F4F4F;
+  }
+
+  .divider {
+    @media only screen and (min-width: 768px) {
+      width: 425px;
+    }
+    margin-bottom: 20px;
+    margin-top: 20px;
+    opacity: 0.2;
+    border: 1px solid #000000;
+  }
+
+  .selectPlaceHolder {
+    color: #BDBDBD;
+  }
+
+  .inputTextArea {
+    height: unset !important;
+  }
+
+  .inputClass, .inputTextArea {
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    height: 40px;
+    color: black;
+
+
+    &:hover, &:focus, &:active {
+      border: 1px solid #2D1FEC;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #BDBDBD;
+    }
+  }
+
+  .error {
+    border: 1px solid #FF4848;
+  }
+
+  .error-label {
+    color: #FF4848 !important;
+  }
+
+  .inputClassLabel {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: black !important;
+  }
+
+  textarea::placeholder {
+    color: #BDBDBD;
+    font-size: 15px;
+  }
+
+  .labelClass {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    color: #828282;
+  }
+
+  input[type=checkbox], input[type=radio] {
+    zoom: 1.5;
+  }
+
+  .margin-left-5 {
+    margin-left: 5px;
+  }
+
+  .mt-20 {
+    margin-top: 20px;
+  }
+
+  //textarea:focus,
+  textarea.form-control:focus,
+  input.form-control:focus,
+  select.form-control:focus,
+  form-control:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
+    border-color: #2D1FEC;
+  }
+}

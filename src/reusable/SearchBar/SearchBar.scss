@@ -1,0 +1,31 @@
+.search-bar-div {
+  .input-group {
+    .input-group-prepend {
+      .input-group-text {
+        border: 1px solid #F2F2F2;
+        border-right: 0;
+        border-radius: 4px;
+        font-size: 16px;
+        background: #FFFFFF;
+
+      }
+    }
+  }
+
+  .search {
+    height: 40px;
+    border: 1px solid #F2F2F2;
+    border-left: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    &:focus, &:active, &:hover {
+      border: 1px solid #F2F2F2;
+      border-left: 0;
+      box-shadow: unset !important;
+      outline: unset !important;
+    }
+  }
+
+
+}
