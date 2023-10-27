@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import CartSummary from "./Component/CartSummary/CartSummary";
 
 function MainCart() {
@@ -12,6 +12,9 @@ function MainCart() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     {/* You can add another grid item for cart item or any other content */}
+                    <Button variant="contained" color="primary">
+                        Place Order
+                    </Button>
                 </Grid>
                 {/* Add more Grid items as needed */}
             </Grid>
