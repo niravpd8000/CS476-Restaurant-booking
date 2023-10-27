@@ -1,0 +1,11 @@
+/* AllergyBox.module.css */
+.allergyBox {
+    background-color: #f2f3f4;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
