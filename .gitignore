@@ -5,14 +5,18 @@
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
+
+package-lock.json
 
 # production
 /build
 
 package-lock.json
 # misc
+
 .DS_Store
 .env.local
 .env.development.local
