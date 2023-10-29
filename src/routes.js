@@ -7,6 +7,7 @@ import SignIn from "./views/SignIn/SignIn";
 import TableReservationForm from "./views/TableRegister/TableReservationForm";
 import ManuCreate from "./views/RegisterManu/ManuCreate";
 import SignUp from './views/SignUp/SignUp';
+import MainCart from './views/Cart'; // Import the Cart component
 
 
 const routes = [
@@ -34,6 +35,8 @@ const routes = [
     },
     {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
     {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
+    { path: '/cart', name: 'Cart', component: <MainCart/> }
+
 ];
 
 export default routes;
