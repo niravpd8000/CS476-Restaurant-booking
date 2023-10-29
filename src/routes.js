@@ -33,7 +33,7 @@ const routes = [
         component: <TableReservationForm/>,
     },
     {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
-    {path: '/sign-up', name: 'Sign Up', component: <SignUp/>}
+    {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
 ];
 
 export default routes;
