@@ -1,23 +1,27 @@
 import React from 'react'
 import "./RestaurantCard.scss";
-import { Card } from 'antd';
-const { Meta } = Card;
+import {Card} from 'antd';
+
+const {Meta} = Card;
 const RestaurantCard = props => {
+    const {data, onClick} = props;
     return (
         <Card
             onClick={props.onClick}
-            style={{ width: "100%", maxWidth:"350px"}}
+            style={{width: "100%", maxWidth: "350px"}}
             className={"card-shadow"}
             cover={
                 <img
+                    width={350}
+                    height={185}
                     alt="example"
-                    src="https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    src={data?.image_url}
                 />
             }
         >
             <Meta
-                title="Restaurant Name"
-                description="Restaurant description"
+                title={data.name}
+                description={data.description}
             />
         </Card>
     )

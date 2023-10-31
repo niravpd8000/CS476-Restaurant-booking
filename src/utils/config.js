@@ -2,7 +2,7 @@ const envType = process.env.REACT_APP_ENV || "development";
 
 const types = {
     development: {
-        ACCOUNT_URL: "http://localhost:3001/api/v1/",
+        URL: "http://localhost:8080/api/",
     },
     staging: {
         BASE_URL: "https://stage.test.com/",

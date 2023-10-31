@@ -17,7 +17,7 @@ const SignUp = (props) => {
 
 
     return (
-        <Row className="container-center signIn-box">
+        <Row className="container-center signUp-box">
             <Col xs={24} align={"center"}>
                 <SettingBox className="container-fluid">
                     <div align="left">

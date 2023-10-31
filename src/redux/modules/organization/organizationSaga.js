@@ -10,7 +10,7 @@ function* createOrganization(action) {
         request({
             type: OrganizationConstants.CREATE_ORGANIZATION,
             method: "POST",
-            baseURL: config.ORG_URL,
+            baseURL: config.DEV_URL,
             url: API.OrganisationInsert,
             data: action.payload.data,
             success: action.payload.onSuccess,
@@ -20,7 +20,54 @@ function* createOrganization(action) {
     );
 }
 
+function* getOrganizationList(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.FETCH_ORGANIZATIONS,
+            method: "get",
+            baseURL:config.URL,
+            url: API.getAllRest,
+            // data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
+
+function* getOrganizationById(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.FETCH_ORGANIZATION_BY_ID,
+            method: "get",
+            baseURL:config.URL,
+            url: API.getRestById+`/${action.payload.data?.id}`,
+            // data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
+
+function* getOrganizationManuById(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.FETCH_ORGANIZATION_BY_ID,
+            method: "get",
+            baseURL:config.URL,
+            url: API.getRestManuById+`/${action.payload.data?.id}`,
+            // data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
 
 export default function* rootSaga() {
     yield takeLatest(OrganizationConstants.CREATE_ORGANIZATION, createOrganization);
+    yield takeLatest(OrganizationConstants.FETCH_ORGANIZATIONS, getOrganizationList);
+    yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_BY_ID, getOrganizationById);
+    yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID, getOrganizationManuById);
 }

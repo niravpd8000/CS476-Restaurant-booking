@@ -30,6 +30,69 @@ export const organizationReducer = handleActions(
             createOrgFailure: true,
             createOrgLoaded: true
         }),
+        [requestPending(OrganizationConstants.FETCH_ORGANIZATIONS)]: state => ({
+            ...state,
+            fetchOrgListLoading: true,
+            fetchOrgListFailure: false,
+            fetchOrgListLoaded: false
+        }),
+        [requestFail(OrganizationConstants.FETCH_ORGANIZATIONS)]: state => ({
+            ...state,
+            fetchOrgListLoading: false,
+            fetchOrgListFailure: true,
+            fetchOrgListLoaded: true
+        }),
+        [requestSuccess(OrganizationConstants.FETCH_ORGANIZATIONS)]: (
+            state,
+            action
+        ) => ({
+            ...state,
+            fetchOrgListLoading: false,
+            fetchOrgListFailure: false,
+            fetchOrgListLoaded: true
+        }),
+        [requestPending(OrganizationConstants.FETCH_ORGANIZATION_BY_ID)]: state => ({
+            ...state,
+            fetchOrgByIdLoading: true,
+            fetchOrgByIdFailure: false,
+            fetchOrgByIdLoaded: false
+        }),
+        [requestFail(OrganizationConstants.FETCH_ORGANIZATION_BY_ID)]: state => ({
+            ...state,
+            fetchOrgByIdLoading: false,
+            fetchOrgByIdFailure: true,
+            fetchOrgByIdLoaded: true
+        }),
+        [requestSuccess(OrganizationConstants.FETCH_ORGANIZATION_BY_ID)]: (
+            state,
+            action
+        ) => ({
+            ...state,
+            fetchOrgByIdLoading: false,
+            fetchOrgByIdFailure: false,
+            fetchOrgByIdLoaded: true
+        }),
+        [requestPending(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID)]: state => ({
+            ...state,
+            fetchOrgManuByIdLoading: true,
+            fetchOrgManuByIdFailure: false,
+            fetchOrgManuByIdLoaded: false
+        }),
+        [requestFail(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID)]: state => ({
+            ...state,
+            fetchOrgManuByIdLoading: false,
+            fetchOrgManuByIdFailure: true,
+            fetchOrgManuByIdLoaded: true
+        }),
+        [requestSuccess(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID)]: (
+            state,
+            action
+        ) => ({
+            ...state,
+            fetchOrgManuByIdLoading: false,
+            fetchOrgManuByIdFailure: false,
+            fetchOrgManuByIdLoaded: true
+        }),
     },
     initialOrganizationState()
 );
