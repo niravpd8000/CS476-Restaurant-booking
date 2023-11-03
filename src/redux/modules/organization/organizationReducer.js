@@ -93,6 +93,27 @@ export const organizationReducer = handleActions(
             fetchOrgManuByIdFailure: false,
             fetchOrgManuByIdLoaded: true
         }),
+        [requestPending(OrganizationConstants.CREATE_MANU)]: state => ({
+            ...state,
+            createManuLoading: true,
+            createManuFailure: false,
+            createManuLoaded: false
+        }),
+        [requestFail(OrganizationConstants.CREATE_MANU)]: state => ({
+            ...state,
+            createManuLoading: false,
+            createManuFailure: true,
+            createManuLoaded: true
+        }),
+        [requestSuccess(OrganizationConstants.CREATE_MANU)]: (
+            state,
+            action
+        ) => ({
+            ...state,
+            createManuLoading: false,
+            createManuFailure: false,
+            createManuLoaded: true
+        }),
     },
     initialOrganizationState()
 );

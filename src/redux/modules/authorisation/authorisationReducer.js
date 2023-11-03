@@ -44,6 +44,29 @@ export const authorisationReducer = handleActions(
             loginFailure: true,
             loginLoaded: false
         }),
+        [requestSuccess(AuthorisationConstants.SIGNUP)]: (
+            state
+        ) => ({
+            ...state,
+            loginLoading: false,
+            loginFailure: false,
+            loginLoaded: true
+        })
+        ,
+        [requestPending(AuthorisationConstants.SIGNUP)]: state => ({
+            ...state,
+            loginLoading: true,
+            loginFailure: false,
+            loginLoaded: false
+        }),
+        [requestFail(AuthorisationConstants.SIGNUP)]: state => ({
+            ...state,
+            access_token: "",
+            loginLoading: false,
+            loginFailure: true,
+            loginLoaded: false
+        }),
+
     },
     initialAuthorisationState()
 );

@@ -13,9 +13,9 @@ const RadioGroup = props => {
                     return (
                         <div className="form-check ml-30" key={key}>
                             <input disabled={disabled} onChange={() => {
-                                onChange(option.value)
+                                onChange({name, value: option.value})
                             }} className="form-check-input" name={option.name} type="radio" value={option.value}
-                                   checked={option.value === value || option.selected}
+                                   checked={option.value === value}
                                    id={"flexRadioDefault" + key}/>
                             <label className="form-check-label inputClassLabel mt-5px"
                                    htmlFor={"flexRadioDefault" + key}>

@@ -25,7 +25,7 @@ const CustomModal = (props) => {
             open={visible} onClose={() => {
             !loading && onClose()
         }}
-            classes={`custom-modal ${className || ""}`}
+            className={`custom-modal ${className || ""}`}
         >
             <Box sx={style}>
                 <Row>

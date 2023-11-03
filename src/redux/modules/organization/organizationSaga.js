@@ -4,13 +4,14 @@ import {OrganizationConstants} from "./organizationConstants";
 import {config} from "../../../utils/config";
 // APIS
 import * as API from '../../../utils/apiConsts';
+import {manuCreate} from "../../../utils/apiConsts";
 
 function* createOrganization(action) {
     yield call(
         request({
             type: OrganizationConstants.CREATE_ORGANIZATION,
             method: "POST",
-            baseURL: config.DEV_URL,
+            baseURL: config.URL,
             url: API.OrganisationInsert,
             data: action.payload.data,
             success: action.payload.onSuccess,
@@ -25,7 +26,7 @@ function* getOrganizationList(action) {
         request({
             type: OrganizationConstants.FETCH_ORGANIZATIONS,
             method: "get",
-            baseURL:config.URL,
+            baseURL: config.URL,
             url: API.getAllRest,
             // data: action.payload.data,
             success: action.payload.onSuccess,
@@ -40,8 +41,8 @@ function* getOrganizationById(action) {
         request({
             type: OrganizationConstants.FETCH_ORGANIZATION_BY_ID,
             method: "get",
-            baseURL:config.URL,
-            url: API.getRestById+`/${action.payload.data?.id}`,
+            baseURL: config.URL,
+            url: API.getRestById + `/${action.payload.data?.id}`,
             // data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail
@@ -55,9 +56,24 @@ function* getOrganizationManuById(action) {
         request({
             type: OrganizationConstants.FETCH_ORGANIZATION_BY_ID,
             method: "get",
-            baseURL:config.URL,
-            url: API.getRestManuById+`/${action.payload.data?.id}`,
+            baseURL: config.URL,
+            url: API.getRestManuById + `/${action.payload.data?.id}`,
             // data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
+
+function* createManu(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.CREATE_MANU,
+            method: "POST",
+            baseURL: config.URL,
+            url: API.manuCreate,
+            data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail
         }),
@@ -70,4 +86,5 @@ export default function* rootSaga() {
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATIONS, getOrganizationList);
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_BY_ID, getOrganizationById);
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID, getOrganizationManuById);
+    yield takeLatest(OrganizationConstants.CREATE_MANU, createManu);
 }

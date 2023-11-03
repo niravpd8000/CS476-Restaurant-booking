@@ -10,7 +10,6 @@ import SignUp from './views/SignUp/SignUp';
 import DataDashboard from "./views/DataDashboard/DataDashboard";
 import CartSummary from './views/CartSummary/CartSummary';
 
-
 const routes = [
     {path: '/dashboard', name: 'Dashboard', component: <Dashboard/>},
     {
@@ -36,8 +35,8 @@ const routes = [
     },
     {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
     {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
-     {path: '/data-dashboard', name: 'Data Dashboard', component: <DataDashboard/>},
-     {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>}
+    {path: '/restaurant-home', name: 'Data Dashboard', component: <DataDashboard/>},
+    {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>}
 ];
 
 export default routes;

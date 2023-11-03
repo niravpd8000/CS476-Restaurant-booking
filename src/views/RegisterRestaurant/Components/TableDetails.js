@@ -5,25 +5,25 @@ import OrgModal from "./OrgModal";
 import LightBlueButton from "../../../reusable/LightBlueButton";
 import Cross from "../../../assets/icons/Cross.svg";
 
-const TableDetails = (props) => {
-    const [selectedWH, setSelectedWH] = useState(["Italian", "Mexican"]);
+const TableDetails = ({onChange, categories}) => {
     const [modalVisible, setModalVisible] = useState(false)
     const handleChange = (value) => {
-        setSelectedWH(uniqueArray([...selectedWH, value]));
+        onChange({name: "categories", value: uniqueArray([...categories, value])});
         setModalVisible(false)
     };
 
     const onClickDelete = (item) => {
-        let array = [...selectedWH];
+        let array = [...categories];
         array = deleteFromArray(array, item);
-        setSelectedWH(array);
+        onChange({name: "categories", value: array});
+
     };
 
     return (
         <div>
             <OrgModal onCancel={() => setModalVisible(false)} visible={modalVisible} onSubmit={handleChange}/>
             <div className="text-black fs-15 mb-10">Add Food Categories:</div>
-            {selectedWH.map((item, key) => {
+            {categories.map((item, key) => {
                 return (<IdLabel key={key} label={item} label2={<img onClick={() => onClickDelete(item)}
                                                                      className="ml-1 cursor-pointer" src={Cross}/>}/>)
             })}

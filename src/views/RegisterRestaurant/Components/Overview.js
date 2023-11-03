@@ -1,35 +1,65 @@
 import React from 'react'
 import TextArea from "../../../reusable/TextArea";
-import {validateEmail} from "../../../utils/common";
+import {validateEmail, validateMobileNumber} from "../../../utils/common";
 import TextField from "../../../reusable/TextField";
 
 const Overview = (props) => {
-    const {onChange, errorMsg, error, organizationData} = props;
+    const {onChange, error, organizationData} = props;
     return (
         <div className="mt-3">
             <TextField required
-                       errorMsg={errorMsg?.name || "Name is required"} label="Name"
-                       error={errorMsg?.name || (error && !"")}
+                       label="Username"
+                       error={error && !organizationData.username}
+                       value={organizationData.username}
+                       name="username"
+                       placeholder="Enter Username"
+                       onChange={onChange}/>
+            <TextField required
+                       label="Password"
+                       error={error && !organizationData.password}
+                       value={organizationData.password}
+                       name="password"
+                       placeholder="Enter Password name"
+                       onChange={onChange}/>
+            <TextField required
+                       label="Confirm Password"
+                       error={error && !organizationData.confirmPassword}
+                       value={organizationData.confirmPassword}
+                       name="confirmPassword"
+                       placeholder="Enter Confirm Password name"
+                       onChange={onChange}/>
+            <TextField required
+                       label="Restaurant Name"
+                       error={error && !organizationData.name}
                        value={organizationData.name}
                        name="name"
-                       placeholder="Enter organization name"
+                       placeholder="Enter Restaurant name"
+                       onChange={onChange}/>
+            <TextField required
+                       label="Restaurant Name"
+                       error={error && !organizationData.name}
+                       value={organizationData.name}
+                       name="name"
+                       placeholder="Enter Restaurant name"
                        onChange={onChange}/>
             <TextArea required
-                      errorMsg={errorMsg?.description || "Description is required"} label="Description"
-                      error={errorMsg?.description || (error && !"")}
+                      label="Description"
+                      error={error && !organizationData.description}
                       value={organizationData.description} name="description"
                       placeholder="Enter Description of the org."
                       onChange={onChange}>
             </TextArea>
             <TextField required
-                       errorMsg={errorMsg?.phone || "Phone is required"} label="Phone" value={organizationData.phone}
-                       error={errorMsg?.phone} name="phone"
+                       label="Phone" value={organizationData.phone}
+                       errorMsg={"Enter Valid phone number"}
+                       error={error && !validateMobileNumber(organizationData.phone)}
+                       name="phone"
                        placeholder="Enter org. phone number"
                        onChange={onChange}/>
             <TextField required
-                       errorMsg={errorMsg?.email || "Email is required"} label="Email" type="email"
+                       label="Email" type="email"
                        value={organizationData.email} name="email"
-                       error={errorMsg?.email || (error && !validateEmail(""))}
+                       error={error && !validateEmail(error?.email)}
                        placeholder="Enter org. email"
                        onChange={onChange}/>
         </div>

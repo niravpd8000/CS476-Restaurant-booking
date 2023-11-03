@@ -25,14 +25,15 @@ const TextArea = props => {
         <div className="textAreaForm mt-20">
             <div className="form-group">
                 <label className="labelClass margin-left-5">{label} {required &&
-                    <span className="color-red">*</span>}</label>
+                    <span className="color-red">*</span>}
+                </label>
                 <textarea
                     className={`form-control w-100 inputTextArea ${errorStatus() && 'error'}`} {...inputProps}
                     rows={rows ? rows : 5} onChange={(e) => {
                     e.target.value = e.target.value === " " ? "" : e.target.value;
-                    onChange(e)
+                    onChange({name, value: e.target.value})
                 }} onBlur={handleOnBlur}>
-        </textarea>
+                </textarea>
                 {errorStatus() &&
                     <span className="margin-left-5 error-label">{errorMsg || `${name} is required`}</span>}
             </div>

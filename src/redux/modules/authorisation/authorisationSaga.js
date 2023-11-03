@@ -6,6 +6,7 @@ import {request} from "../../../utils/fetch";
 import {AuthorisationConstants} from "./authorisationConstants";
 // APIS
 import * as API from '../../../utils/apiConsts';
+import {signUp} from "../../../utils/apiConsts";
 
 function* login(action) {
   yield call(
@@ -21,7 +22,22 @@ function* login(action) {
     action
   );
 }
+function* signup(action) {
+    yield call(
+        request({
+            type: AuthorisationConstants.SIGNUP,
+            method: "POST",
+            url: API.signUp,
+            data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail,
+            baseURL: config.URL
+        }),
+        action
+    );
+}
 
 export default function* rootSaga() {
-  yield takeLatest(AuthorisationConstants.LOGIN, login);
+    yield takeLatest(AuthorisationConstants.LOGIN, login);
+    yield takeLatest(AuthorisationConstants.SIGNUP, signup);
 }

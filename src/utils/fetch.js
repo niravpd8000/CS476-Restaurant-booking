@@ -37,7 +37,8 @@ export const request = ({
                     payload: action.payload
                 });
             }
-            const authToken = `Bearer ${localStorage.getItem("access_token")}`;
+            const authToken = `${localStorage.getItem("accessToken")}`;
+            console.log(authToken)
             axios.defaults.baseURL = baseURL;
 
             axios.defaults.headers.common = {
@@ -46,7 +47,7 @@ export const request = ({
                 "Content-Type": "application/json"
             };
             if (authToken) {
-                axios.defaults.headers.common.Authorization = authToken || "";
+                axios.defaults.headers.common["x-access-token"] = authToken || "";
             }
             const res = yield call(axios.request, {
                 url,

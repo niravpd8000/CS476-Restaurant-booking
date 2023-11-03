@@ -35,10 +35,11 @@ const TextField = ({
                 <label className="labelClass margin-left-5 w-100">{label}{required &&
                     <span className="color-red">*</span>}</label>
                 <input type={type ? type : "text"}
+                       disabled
                        max={max}
                        maxLength={100}
                        disabled={disabled}
-                       className={`form-control w-100 inputClass ${errorStatus() && 'error'}`}
+                       className={`form-control ${disabled ? "disabled" : ""} w-100 inputClass ${errorStatus() && 'error'}`}
                        name={name}
                        onChange={(e) => {
                            e.target.value = e.target.value === " " ? "" : e.target.value;

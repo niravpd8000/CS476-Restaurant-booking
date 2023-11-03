@@ -10,16 +10,12 @@ const Forms = (props) => {
     const {
         tab,
         loading,
-        errorMsg,
-
         error,
         currentTab,
         onChangeState,
         organizationData,
     } = props;
 
-    const [cities, setCities] = useState([]);
-    const [states, setStates] = useState([]);
     const handleChange = (e) => {
         let {name, value} = e.target ? e.target : e;
         onChangeState(prevState => ({
@@ -30,7 +26,7 @@ const Forms = (props) => {
     };
 
 
-
+    console.log(organizationData)
     return (
         <div className="organization">
             <InputBox
@@ -38,20 +34,19 @@ const Forms = (props) => {
                 title={tab[currentTab].label}
             >
                 {currentTab === 0 &&
-                    <Overview errorMsg={errorMsg} error={error === currentTab}
+                    <Overview error={error === currentTab}
                               organizationData={organizationData}
                               onChange={handleChange}/>}
                 {currentTab === 1 &&
-                    <LocationAndContact errorMsg={errorMsg} error={error === currentTab}
-                                        states={states} cities={cities}
-                                        organizationData={organizationData.address}
-                                        onChange={()=>{}}/>}
+                    <LocationAndContact error={error === currentTab}
+                                        addressData={organizationData.address}
+                                        onChange={handleChange}/>}
                 {currentTab === 2 &&
-                    <WorkSchedule errorMsg={errorMsg} name="schedules" schedules={organizationData.schedules} onChange={handleChange}/>}
+                    <WorkSchedule name="schedules" schedules={organizationData.schedules} onChange={handleChange}/>}
                 {currentTab === 3 &&
-                    <TableDetails errorMsg={errorMsg} organizationData={organizationData} onChange={handleChange}/>}
+                    <TableDetails categories={organizationData.categories} onChange={handleChange}/>}
                 {currentTab === 4 &&
-                    <TableReservation errorMsg={errorMsg} organizationData={organizationData} onChange={handleChange}/>}
+                    <TableReservation organizationData={organizationData} onChange={handleChange}/>}
             </InputBox>
         </div>
     );

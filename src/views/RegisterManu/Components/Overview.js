@@ -2,37 +2,42 @@ import React from 'react'
 import TextArea from "../../../reusable/TextArea";
 import UploadImage from "../../../reusable/UploadImage";
 import TextField from "../../../reusable/TextField";
+import {Switch} from "antd";
 
 const Overview = (props) => {
-    const {onChange, errorMsg, error, organizationData} = props;
+    const {onChange, errorMsg, error, manuData} = props;
     return (
         <div className="mt-3">
-            <UploadImage assetImage name="assetImages" imageSet={organizationData.assetImage} onChange={onChange}/>
+            <UploadImage assetImage name="assetImages" imageSet={manuData.assetImage} onChange={onChange}/>
             <TextField required
                        errorMsg={errorMsg?.name || "Name is required"} label="Name"
                        error={errorMsg?.name || (error && !"")}
-                       value={organizationData.name}
+                       value={manuData.name}
                        name="name"
                        placeholder="Enter organization name"
                        onChange={onChange}/>
             <TextArea required
                       errorMsg={errorMsg?.description || "Description is required"} label="Description"
                       error={errorMsg?.description || (error && !"")}
-                      value={organizationData.description} name="description"
+                      value={manuData.description} name="description"
                       placeholder="Enter Description of the org."
-                      onChange={onChange}>
-            </TextArea>
+                      onChange={onChange}/>
             <TextField required
-                       errorMsg={errorMsg?.price || "Price is required"} label="Price" value={organizationData.price}
+                       errorMsg={errorMsg?.price || "Price is required"} label="Price" value={manuData.price}
                        error={errorMsg?.price} name="price" type={"number"}
                        placeholder="Enter price"
                        onChange={onChange}/>
             <TextField required
-                       errorMsg={errorMsg?.estimate_time || "Estimate time is required"} label="Estimate time to Prepare" type="number"
-                       value={organizationData.estimate_time} name="estimate_time"
+                       errorMsg={errorMsg?.estimate_time || "Estimate time is required"}
+                       label="Estimate time to Prepare (In min)" type="number"
+                       value={manuData.estimate_time} name="estimate_time"
                        error={errorMsg?.estimate_time || (error && !"")}
                        placeholder="Enter Estimate time to Prepare"
                        onChange={onChange}/>
+            <div className={"mt-20"}>
+                <Switch onChange={(e) => onChange({name: "available", value: !manuData.available})}
+                        checked={manuData.available}/>&nbsp; &nbsp;{manuData.available ? "Available" : "Unavailable"}
+            </div>
         </div>
     )
 };

@@ -92,6 +92,17 @@ export const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 };
 
+export const validateMobileNumber = (mobileNumber) => {
+    const re = /^[0-9]{10}$/;
+    return re.test(String(mobileNumber).replace(/[-\s()]/g, ''));
+};
+
+export const validateCanadianPostalCode = (postalCode) => {
+    const re = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
+
+    return re.test(postalCode);
+};
+
 export function downloadFile(api, data, name) {
     axios.post(config.BASE_URL + api, data,
         {

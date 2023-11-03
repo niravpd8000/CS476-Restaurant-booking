@@ -27,7 +27,6 @@ const Dashboard = ({getOrgList}) => {
         );
     };
 
-    console.log(restList);
     return (
         <>
             <div className="dashboard-wrapper mb-4">

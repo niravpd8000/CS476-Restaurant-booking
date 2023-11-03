@@ -3,9 +3,17 @@ import GreenButton from "../../reusable/GreenButton";
 import LightBlueButton from "../../reusable/LightBlueButton";
 import ProgressBar from "../../reusable/ProgressBar";
 import Forms from "./Components/Froms";
-import {errorMessage, successMessage, validateEmail} from "../../utils/common";
+import {
+    errorMessage,
+    successMessage,
+    validateCanadianPostalCode,
+    validateEmail,
+    validateMobileNumber
+} from "../../utils/common";
 import {Col, Row} from "antd";
 import {useNavigate} from "react-router-dom";
+import {createOrg} from "../../redux/modules/organization/organizationActions";
+import {connect} from "react-redux";
 
 
 const tab = [
@@ -21,31 +29,46 @@ const Create = (props) => {
     const {createOrg, organization} = props;
     const [currentTab, setCurrentTab] = useState(0);
     const [error, setError] = useState(-1);
-    const [errorMsg, setErrorMsg] = useState({});
 
     const [state, setState] = useState({
+        username: "",
+        password: "",
+        confirmPassword: "",
+        fullName: "Owner",
         name: 'Test',
         description: 'test ',
         phone: '3063513068',
         email: 'nislds@gmail.com',
-        number_of_table: 6,
+        number_of_table: 2,
+        provide_reservation: true,
+        image_url: "https://marketplace.canva.com/EAFpeiTrl4c/1/0/1600w/canva-abstract-chef-cooking-restaurant-free-logo-9Gfim1S8fHg.jpg",
+        categories: ["Italian", "Mexican"],
+        table_capacity: [
+            {capacity: 4},
+            {capacity: 4}
+        ],
         address: {
-            countryId: 0,
-            stateId: 0,
-            cityId: 0,
+
+            stateId: "SK",
+            cityId: "Regina",
             address: '132 ABC st',
-            isPrimary: true
+            zipcode: "",
         },
-        schedules: []
+        schedules: data
     });
 
     const onclickNext = () => {
-        if ((currentTab === 0 && (state.name && state.description && state.phone.length === 10 && validateEmail(state.email))) || (currentTab === 1 && !!(state.address.address)))
+        if ((currentTab === 0 && (state.name && state.description && validateMobileNumber(state.phone) && validateEmail(state.email))) || (currentTab === 1 && !!(state.address.address) && validateCanadianPostalCode(state.address.zipcode)))
             setCurrentTab(currentTab + 1);
         else if (currentTab === 2)
             setCurrentTab(currentTab + 1);
-        else if (currentTab === 3)
+        else if (currentTab === 3) {
             setCurrentTab(currentTab + 1);
+        }
+        else if (currentTab === 4) {
+            createOrganization();
+            navigate("/restaurant-home")
+        }
         else
             setError(currentTab);
     };
@@ -53,8 +76,8 @@ const Create = (props) => {
     const onclickBack = () => {
         if (currentTab !== 0)
             setCurrentTab(currentTab - 1);
-        else
-            navigate(-1);
+        // else
+        //     navigate(-1);
 
     };
 
@@ -63,7 +86,6 @@ const Create = (props) => {
             successMessage("Organization created successfully.");
         };
         const onFail = err => {
-            setErrorMsg(err?.data?.errors);
             errorMessage(err.data?.title || err.data?.message);
         };
         createOrg(state, onSuccess, onFail);
@@ -80,7 +102,7 @@ const Create = (props) => {
                 </div>
                 <div>
                     <ProgressBar labelList={tab} index={currentTab}/>
-                    <Forms errorMsg={errorMsg} loading={false} error={error}
+                    <Forms loading={false} error={error}
                            organizationData={state}
                            onChangeState={setState} tab={tab} currentTab={currentTab}/>
                 </div>
@@ -89,4 +111,27 @@ const Create = (props) => {
     )
 };
 
-export default Create;
+const mapDispatchToProps = dispatch => {
+    return {
+        createOrg: (data, onSuccess, onFail) => dispatch(createOrg({data, onSuccess, onFail})),
+    };
+};
+
+const mapStateToProps = state => {
+    return {
+        organization: state.organization,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Create);
+
+
+const data = [
+    {day: "Monday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "Tuesday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "Wednesday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "Thursday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "Friday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "Saturday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "Sunday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+];

@@ -11,11 +11,17 @@ import MenuItem from '@mui/material/MenuItem';
 import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 import LightBlueButton from "../../reusable/LightBlueButton";
 import GreenButton from "../../reusable/GreenButton";
-import {Grid} from "@mui/material";
+import {Badge, Button, Grid} from "@mui/material";
 import SearchBar from "../../reusable/SearchBar";
 import {useNavigate} from "react-router-dom";
+import {getFromStorage} from "../../utils/common";
+import {Logout} from "@mui/icons-material";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Manage Manu', goto: "manage-manu"}, {
+    label: 'Manage reservation',
+    badge: "reserveBadge"
+}, {label: 'Manage Order', badge: "orderBadge"}];
+const userPages = [{label: 'Product'}, {label: 'Pricing'}, {label: 'Blog'}];
 
 function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -28,8 +34,10 @@ function Header() {
     //     setAnchorElUser(event.currentTarget);
     // };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (goto) => {
         setAnchorElNav(null);
+        navigate(goto);
+
     };
 
     // const handleCloseUserMenu = () => {
@@ -37,7 +45,7 @@ function Header() {
     // };
 
     return (
-        <AppBar position="fixed" style={{background:"red"}}>
+        <AppBar position="fixed" style={{background: "red"}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <DinnerDiningIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
@@ -88,9 +96,9 @@ function Header() {
                                 display: {xs: 'block', md: 'none'},
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            {userPages.map((page, key) => (
+                                <MenuItem key={key} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">{page.label}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -115,44 +123,45 @@ function Header() {
                         DineEase
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {/*<SearchBar className={"w-50"}/>*/}
+                        {adminPages.map((page, key) => (
+                            page.badge ?
+                                <Badge badgeContent={4} color="primary" style={{marginTop: "16px", marginRight: "8px"}}>
+                                    <Button
+                                        style={{height: "fit-content", margin: "0"}}
+                                        key={key}
+                                        onClick={() => handleCloseNavMenu(page?.goto)}
+                                        sx={{my: 2, color: 'white', display: 'block'}}
+                                    >
+                                        {page.label}
+                                    </Button>
+                                </Badge>
+                                : <Button
+                                    key={key}
+                                    onClick={() => handleCloseNavMenu(page?.goto)}
+                                    sx={{my: 2, color: 'white', display: 'block'}}
+                                >
+                                    {page.label}
+                                </Button>
+                        ))}
                     </Box>
 
                     <Box sx={{flexGrow: 0}}>
-                        <Grid>
+                        {!getFromStorage("accessToken") && <Grid>
                             <LightBlueButton style={{borderRadius: "20px"}} onClick={() => navigate("/sign-in")}>Sign
                                 In</LightBlueButton>
                             <GreenButton onClick={() => navigate("/sign-up")}>Sign Up</GreenButton>
-                        </Grid>
-                        {/*<Tooltip title="Open settings">*/}
-                        {/*    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>*/}
-                        {/*        <Avatar alt="Nemy Sharp" src="/static/images/avatar/2.jpg"/>*/}
-                        {/*    </IconButton>*/}
-                        {/*</Tooltip>*/}
-                        {/*<Menu*/}
-                        {/*    sx={{mt: '45px'}}*/}
-                        {/*    id="menu-appbar"*/}
-                        {/*    anchorEl={anchorElUser}*/}
-                        {/*    anchorOrigin={{*/}
-                        {/*        vertical: 'top',*/}
-                        {/*        horizontal: 'right',*/}
-                        {/*    }}*/}
-                        {/*    keepMounted*/}
-                        {/*    transformOrigin={{*/}
-                        {/*        vertical: 'top',*/}
-                        {/*        horizontal: 'right',*/}
-                        {/*    }}*/}
-                        {/*    open={Boolean(anchorElUser)}*/}
-                        {/*    onClose={handleCloseUserMenu}*/}
-                        {/*>*/}
-                        {/*    {settings.map((setting) => (*/}
-                        {/*        <MenuItem key={setting} onClick={handleCloseUserMenu}>*/}
-                        {/*            <Typography textAlign="center">{setting}</Typography>*/}
-                        {/*        </MenuItem>*/}
-                        {/*    ))}*/}
+                        </Grid>}
 
-                        {/*</Menu>*/}
-
+                    </Box>
+                    <Box>
+                        <IconButton
+                            size="large"
+                            aria-label="show more"
+                            aria-haspopup="true"
+                            color="inherit"
+                        >
+                            <Logout/>
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </Container>

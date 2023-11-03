@@ -1,37 +1,39 @@
 import React, {useEffect, useState} from "react";
-import {Row, Col} from "react-bootstrap";
-import SelectMenu from "../../../reusable/SelectMenu";
 import CustomModal from "../../../reusable/CustomModal";
 import "../../../reusable/CustomModal/Modal.scss";
-import TextField from "../../../reusable/TextField";
+import FormGenerator from "../../../reusable/FromGenerator";
+import {Col, Row} from "antd";
+import SettingBox from "../../../reusable/SettingBox";
 
-const OrgModal = (props) => {
-    const {visible, onCancel, onSubmit} = props;
+const AddToCartModal = (props) => {
+    const {visible, onCancel, onSubmit, manuItem} = props;
     const [category, setCategory] = useState("")
     const [error, setError] = useState(false)
     useEffect(() => {
         setCategory("");
         setError(false);
     }, [visible]);
-    console.log(error)
+    const handleForm=(e)=>{
+    }
     return (
         <CustomModal onClickSubmit={() => {
             if (category)
                 onSubmit(category);
             else
                 setError(true);
-        }} title="Create Category" visible={visible}
+        }} title="ADD TO CART" visible={visible}
                      onClose={onCancel}
                      className="filter-modal">
             <Row>
-                <Col xs={12}>
-                    <TextField required error={error} name={"category"} label="Category" placeholder="Enter Category"
-                               value={category}
-                               onChange={(e) => setCategory(e.target.value)}/>
+                <Col>
+                    <SettingBox className="container-fluid">
+                        <FormGenerator handleForm={handleForm} dataJSON={JSON.parse(manuItem.additional_details)}/>
+                    </SettingBox>
                 </Col>
             </Row>
+
         </CustomModal>
     )
 };
 
-export default OrgModal;
+export default AddToCartModal;

@@ -30,9 +30,10 @@ const SelectMenu = props => {
         if (onBlur)
             onBlur()
     };
+    console.log(options)
     return (
         <>
-            {label ? <div className={`selectMenu mt-20 ${parentClass || ""}`}>
+            {label ? <div className={`selectMenu mt-20 ${parentClass || ""} `}>
                     <div className="form-group set-width">
                         {label && <label className="labelClass margin-left-5">{label} {required &&
                             <span className="color-red">*</span>}</label>}
@@ -41,7 +42,7 @@ const SelectMenu = props => {
                             <select
                                 disabled={disabled}
                                 value={value || value === 0 ? value : ""}
-                                className={`form-control inputClass  ${inputClass || "w-100"} ${errorStatus() && 'error'} ${(!value || value === '') && 'text-gray'}`}
+                                className={`form-control inputClass ${disabled ? "disabled" : ""}  ${inputClass || "w-100"} ${errorStatus() && 'error'} ${(!value || value === '') && 'text-gray'}`}
                                 name={name}
                                 onChange={onChange}
                                 onBlur={handleOnBlur}
@@ -50,7 +51,7 @@ const SelectMenu = props => {
                                 {options?.length > 0 && options.map((option, index) => {
                                     return (
                                         <option key={index}
-                                                value={option.value || option.id || option.value}>{option?.name || option?.label || [option[labelIndex]] || index}</option>
+                                                value={option.value || option.id || option}>{option?.name || option?.label || [option[labelIndex]] || option}</option>
                                     )
                                 })}
                             </select>

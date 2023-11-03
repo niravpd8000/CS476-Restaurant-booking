@@ -2,41 +2,41 @@ import React from 'react';
 import TextArea from "../../../reusable/TextArea";
 import SelectMenu from "../../../reusable/SelectMenu";
 import TextField from "../../../reusable/TextField";
+import {validateCanadianPostalCode} from "../../../utils/common";
 
 const LocationAndContact = (props) => {
-    const {onChange, errorMsg, organizationData, states, cities, error} = props;
-
+    const {onChange, addressData, error} = props;
+    const handleChange = (e) => {
+        let {name, value} = e.target ? e.target : e;
+        onChange({name: "address", value: {...addressData, [name]: value}})
+        // onChangeState(state);
+    };
     return (
         <div>
             <TextArea required
-                      errorMsg={!!errorMsg["address.Address"] || errorMsg?.address ? errorMsg["address.Address"] || errorMsg?.address : "Address is required"}
-                      error={!!errorMsg["address.Address"] || errorMsg?.address || (error && !organizationData?.address)}
+                      error={error && !addressData.address}
                       label="Address"
-                      value={organizationData.address} name='address'
-                      placeholder="This is address line 1 and address line 2" onChange={onChange}/>
+                      value={addressData.address} name='address'
+                      placeholder="This is address line 1 and address line 2" onChange={handleChange}/>
             <SelectMenu required
-                        errorMsg={!!errorMsg["address.State"] || errorMsg?.state ? errorMsg["address.State"] || errorMsg?.state : "State is required"}
-                        error={!!errorMsg["address.State"] || errorMsg?.state || (error && !organizationData?.stateId)}
-                        disabled={!organizationData.countryId}
-                        label="State" value={organizationData.stateId} name='stateId'
-                        placeholder="Select a state"
-                        options={states || []}
-                        onChange={onChange}/>
-            <SelectMenu required
-                        errorMsg={!!errorMsg["address.City"] || errorMsg?.city ? errorMsg["address.City"] || errorMsg?.city : "City is required"}
-                        error={!!errorMsg["address.City"] || errorMsg?.city || (error && !organizationData?.cityId)}
-                        disabled={!organizationData.stateId}
-                        label="City" value={organizationData.cityId} name='cityId'
+                        disabled
+                        label="City" value={addressData.cityId} name='cityId'
                         placeholder="Select a city"
-                        options={cities}
-                        onChange={onChange}/>
+                        options={[{label: "Regina", value: "Regina"}]}
+                        onChange={handleChange}/>
+            <SelectMenu required
+                        error={error && !addressData.cityId}
+                        disabled
+                        label="State" value={addressData.stateId} name='stateId'
+                        placeholder="Select a state"
+                        options={[{label: "SK", value: "SK"}]}
+                        onChange={handleChange}/>
             <TextField required
-                       errorMsg={!!errorMsg["address.ZipCode"] || errorMsg?.zipCode ? errorMsg["address.ZipCode"] || errorMsg?.zipCode : "Zip code is required"}
-                       error={!!errorMsg["address.ZipCode"] || errorMsg?.zipCode || (error && !organizationData?.zipCode)}
+                       error={error && !validateCanadianPostalCode(addressData.zipcode)}
                        label="Zip code"
-                       value={organizationData.zipCode} name='zipCode'
-                       placeholder="Enter zip code"
-                       onChange={onChange}/>
+                       value={addressData.zipcode} name='zipcode'
+                       placeholder="Enter valid zip code"
+                       onChange={handleChange}/>
         </div>
     )
 };
