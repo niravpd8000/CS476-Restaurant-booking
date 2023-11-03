@@ -1,0 +1,45 @@
+.div1 {
+  font-weight: bold;
+  font-size: large;
+}
+
+.div2 {
+  border: solid black 2px;
+  padding: 10px;
+  margin: 10px auto;
+  box-sizing: border-box;
+}
+
+div {
+  width: auto;
+  padding: 10px;
+  margin: auto;
+}
+span {
+  display: inline-block;
+  width: 25%;
+}
+
+button {
+  justify-content: space-around;
+  width: 45%;
+  margin: 0px auto;
+  color: black;
+  font-size: 16px;
+  padding: 15px 30px;
+  border-radius: 15px;
+}
+
+.button1 {
+  background-color: mediumseagreen;
+}
+
+.button2 {
+  background-color: powderblue;
+}
+
+.button3 {
+  background-color: orange;
+  float: right;
+  margin-right: 10%;
+}
