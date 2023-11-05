@@ -13,6 +13,8 @@ import PreviousOrder from './views/PreviousOrder/PreviousOrder';
 import ManageManu from "./views/ManageManu";
 import OrderManagement from "./views/OrderManagement/orderManagement";
 
+
+
 const routes = [
     {path: '/dashboard', name: 'Dashboard', component: <Dashboard/>},
     {
@@ -45,6 +47,9 @@ const routes = [
     {path: '/PreviousOrder', name: 'Previous Order', component: <PreviousOrder/>},
     {path: '/manage-manu', name: 'Manage Manu', component: <ManageManu/>},
     {path: '/edit-manu/:id', name: 'Edit Manu', component: <ManuCreate/>},
+    
+    
+
 ];
 
 export default routes;
