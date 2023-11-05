@@ -31,8 +31,8 @@
 
 .cart-item-image {
     margin-right: 10px;
-    width: 100px;  /* Adjust to your desired size */
-    height: 100px; /* Adjust to your desired size */
+    width: 100px;  
+    height: 100px; 
     overflow: hidden; 
     float: left;
 }

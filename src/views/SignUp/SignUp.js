@@ -12,8 +12,8 @@ import {useNavigate} from "react-router-dom";
 const SignUp = ({signup}) => {
     const navigate = useNavigate();
     const [state, setState] = useState({
-        firstname: "",
-        lastname: "",
+        fullName: "",
+        username: "",
         phone: "",
         email: "",
         password: "",
@@ -28,7 +28,7 @@ const SignUp = ({signup}) => {
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
         };
-        if (state.firstname && state.lastname && state.phone && validateEmail(state.email) && state.password && (state.confirmPassword && state.confirmPassword === state.password))
+        if (state.fullName && state.username && state.phone && validateEmail(state.email) && state.password && (state.confirmPassword && state.confirmPassword === state.password))
             signup(
                 {...state},
                 onSuccess,
@@ -44,21 +44,20 @@ const SignUp = ({signup}) => {
                 <SettingBox className="container-fluid">
                     <div align="left">
                         <span className='fs-20 lh-23 fw-bold mt-30 mb-20 '>Sign Up</span>
-                        <TextField errorMsg="Enter valid First Name"
-                                   required label="First Name"
-                                   value={state.firstname}
-                                   error={error && !state.firstname}
-                                   name="firstname"
+                        <TextField errorMsg="Enter valid Full Name"
+                                   required label="Full Name"
+                                   value={state.fullName}
+                                   error={error && !state.fullName}
+                                   name="fullName"
                                    onChange={(e) => setState({...state, [e.target.name]: e.target.value})}
-                                   placeholder="Enter First Name"/>
-
-                        <TextField errorMsg="Enter valid Last Name"
-                                   required label="Last Name"
-                                   value={state.lastname}
-                                   error={error && !state.lastname}
-                                   name="lastname"
+                                   placeholder="Enter Full Name"/>
+                        <TextField errorMsg="Enter valid Username"
+                                   required label="Username"
+                                   value={state.username}
+                                   error={error && !state.username}
+                                   name="username"
                                    onChange={(e) => setState({...state, [e.target.name]: e.target.value})}
-                                   placeholder="Enter Last Name "/>
+                                   placeholder="Enter Username "/>
 
                         <TextField errorMsg="Enter valid Mobile number"
                                    required label="Phone number"

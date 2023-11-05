@@ -10,6 +10,8 @@ import SignUp from './views/SignUp/SignUp';
 import DataDashboard from "./views/DataDashboard/DataDashboard";
 import OrderManagement from "./views/OrderManagement/OrderManagement";
 import CartSummary from './views/CartSummary/CartSummary';
+import PreviousOrder from './views/PreviousOrder/PreviousOrder';
+import ManageManu from "./views/ManageManu";
 
 const routes = [
     {path: '/dashboard', name: 'Dashboard', component: <Dashboard/>},
@@ -38,7 +40,11 @@ const routes = [
     {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
     {path: '/restaurant-home', name: 'Data Dashboard', component: <DataDashboard/>},
     {path: '/order-management', name: 'Order Management', component: <OrderManagement/>},
-    {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>}
+    {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>},
+    {path: '/PreviousOrder', name: 'Previous Order', component: <PreviousOrder/>},
+    {path: '/manage-manu', name: 'Manage Manu', component: <ManageManu/>},
+    {path: '/edit-manu/:id', name: 'Edit Manu', component: <ManuCreate/>},
+    
 ];
 
 export default routes;

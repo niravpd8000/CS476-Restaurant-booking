@@ -72,8 +72,22 @@ function* createManu(action) {
             type: OrganizationConstants.CREATE_MANU,
             method: "POST",
             baseURL: config.URL,
-            url: API.manuCreate,
+            url: action.payload.data?.itemId ? API.manuUpdate : API.manuCreate,
             data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
+
+function* getManuById(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.FETCH_MANU_BY_ID,
+            method: "get",
+            baseURL: config.URL,
+            url: API.manuById + `/${action.payload.data?.id}`,
             success: action.payload.onSuccess,
             fail: action.payload.onFail
         }),
@@ -87,4 +101,5 @@ export default function* rootSaga() {
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_BY_ID, getOrganizationById);
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID, getOrganizationManuById);
     yield takeLatest(OrganizationConstants.CREATE_MANU, createManu);
+    yield takeLatest(OrganizationConstants.FETCH_MANU_BY_ID, getManuById);
 }

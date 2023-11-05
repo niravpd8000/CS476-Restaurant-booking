@@ -1,15 +1,14 @@
 import React, {useState} from "react";
 
 import "../AvailableMeals.scss";
-import AddToCartModal from "./AddToCartModal";
+import {useNavigate} from "react-router-dom";
 
 const MealItem = ({manuItem}) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const navigate = useNavigate();
     return (
         <>
-            {manuItem.available && <AddToCartModal visible={modalVisible} manuItem={manuItem}/>
-            }
-            <div className={"meal-card"}>
+            <div className={"meal-card-edit"}>
                 <div className={"child left-div"}>
                     <h3>{manuItem.name}</h3>
                     <span className={"price"}>CA$ {manuItem.price}</span>
@@ -19,9 +18,12 @@ const MealItem = ({manuItem}) => {
                                                         src={manuItem.image_url || "https://freeiconshop.com/wp-content/uploads/edd/food-outline.png"}/>
                 </div>
                 <div className={"add-div"}>
-                    <button disabled={!manuItem.available} className={"add-button"}
-                            onClick={() => manuItem.available ? setModalVisible(true) : null}>{manuItem.available ? "add" : "Out of Stock"}
+                    <button className={"add-button"} onClick={() => navigate(`/edit-manu/${manuItem._id}`)}>edit
                     </button>
+                </div>
+                <div className={"availableTag"}>
+                    <span
+                        className={manuItem.available ? "available" : "unavailable"}>{manuItem.available ? "Available" : "Unavailable"}</span>
                 </div>
             </div>
         </>

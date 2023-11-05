@@ -1,0 +1,15 @@
+.previous-order {
+    max-width: 100%; /* Adjust as necessary */
+    margin: auto;
+}
+
+.previous-order-image {
+    width: 120px; /* Adjust as necessary */
+    height: 80px; /* Adjust as necessary */
+    object-fit: cover;
+    margin-right: 16px;
+}
+
+.reorder-button {
+    white-space: nowrap;
+}
