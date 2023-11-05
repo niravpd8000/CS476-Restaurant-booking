@@ -3,10 +3,12 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Button, Typography } from '@mui/material';
-import './CartSummary.css';
+import {useNavigate} from "react-router-dom";
 
 function CartSummary() {
+    const navigate = useNavigate();
     return (
+        
         <Box p={4}>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
@@ -38,7 +40,7 @@ function CartSummary() {
 
                 <Grid item xs={12} md={6}>
                     <div className="checkout-container">
-                        <Button variant="contained" color="primary">Checkout</Button>
+                        <Button variant="contained" color="primary" onClick={() => navigate("/payment")}>Checkout</Button>
                         <Typography variant="h6">Total: CA$15.18</Typography>
                     </div>
                 </Grid>
