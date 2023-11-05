@@ -44,7 +44,7 @@ const ManuCreate = (props) => {
     useEffect(() => {
         if (isEditMenuPath && id)
             getManuByID();
-        else
+        else if (isEditMenuPath)
             navigate(-1);
     }, []);
     const handleTab = (event, newValue) => {
