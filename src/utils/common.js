@@ -165,6 +165,11 @@ export const parseJwt = (token) => {
     return JSON.parse(jsonPayload);
 };
 
+export const getRestIdFromToken = () => {
+    var token = getFromStorage("accessToken");
+    return token ? parseJwt(token)?.restaurantId : null;
+};
+
 export const downloadFile2 = (dataUrl, filename) => {
     const url = window.URL.createObjectURL(dataUrl);
     const a = document.createElement('a');

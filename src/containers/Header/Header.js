@@ -125,7 +125,7 @@ function Header() {
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {adminPages.map((page, key) => (
                             page.badge ?
-                                <Badge badgeContent={4} color="primary" style={{marginTop: "16px", marginRight: "8px"}}>
+                                <Badge key={key} badgeContent={4} color="primary" style={{marginTop: "16px", marginRight: "8px"}}>
                                     <Button
                                         style={{height: "fit-content", margin: "0"}}
                                         key={key}

@@ -1,11 +1,11 @@
 import React  from 'react';
 import Grid from '@mui/material/Grid';
 import { Typography,} from '@mui/material';
-import './orderManagement.css';
+// import './orderManagement.css';
 
 
 
-function orderManagement() {
+function OrderManagement() {
     return ( <>
     
     <grid container>
@@ -52,4 +52,4 @@ function orderManagement() {
     </> );
 }
 
-export default orderManagement;
+export default OrderManagement;

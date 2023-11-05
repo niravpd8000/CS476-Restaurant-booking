@@ -55,7 +55,6 @@ const config = {
 
 const FormBuilder = (props) => {
     const {formBuilder, setFormBuilder, formData} = props;
-
     const fb = useRef(null);
     useEffect(() => {
         if (!formBuilder) {
@@ -63,7 +62,10 @@ const FormBuilder = (props) => {
             setFormBuilder(formBuilderInstance);
         }
     }, [formBuilder]);
-
+    useEffect(() => {
+        if (formData.length)
+            formBuilder.setData(formData)
+    }, [formData])
     return (
         <div className="work-location template">
             <div className="d-flex">

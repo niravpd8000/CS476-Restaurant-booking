@@ -1,13 +1,16 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import GreenButton from "../../reusable/GreenButton";
 import LightBlueButton from "../../reusable/LightBlueButton";
 import ProgressBar from "../../reusable/ProgressBar";
 import Forms from "./Components/Froms";
 import {errorMessage, successMessage,} from "../../utils/common";
 import {Col, Row} from "antd";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {connect} from "react-redux";
-import {createManu} from "../../redux/modules/organization/organizationActions";
+import {createManu, fetchManuById} from "../../redux/modules/organization/organizationActions";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 
 const tab = [
@@ -18,24 +21,37 @@ const tab = [
 ]
 const ManuCreate = (props) => {
     const navigate = useNavigate();
-    const {organization, createManu} = props;
+    const {organization, createManu, getManu} = props;
     const [currentTab, setCurrentTab] = useState(0);
     const [error, setError] = useState(-1);
     const [errorMsg, setErrorMsg] = useState({});
     const [formBuilder, setFormBuilder] = useState();
+    const location = useLocation();
+    const isEditMenuPath = /^\/edit-manu\/[a-fA-F0-9]{24}$/.test(location.pathname);
 
+    const {id} = useParams();
+    console.log()
     const [state, setState] = useState({
-        name: 'Test',
-        description: 'test ',
-        price: 10,
-        estimate_time: 10,
-        additional_details: '"[{\\"type\\":\\"header\\",\\"subtype\\":\\"h1\\",\\"label\\":\\"Customize\\"},{\\"type\\":\\"checkbox-group\\",\\"required\\":false,\\"label\\":\\"Veggie\\",\\"name\\":\\"Veggie\\",\\"values\\":[{\\"label\\":\\"tomato\\",\\"value\\":\\"Tomato\\",\\"selected\\":true},{\\"label\\":\\"onion\\",\\"value\\":\\"Onion\\",\\"selected\\":false}]},{\\"type\\":\\"radio-group\\",\\"required\\":true,\\"label\\":\\"Size\\",\\"name\\":\\"Size\\",\\"values\\":[{\\"label\\":\\"10\\",\\"value\\":\\"Small\\",\\"selected\\":true},{\\"label\\":\\"11\\",\\"value\\":\\"medium\\",\\"selected\\":false},{\\"label\\":\\"12\\",\\"value\\":\\"large\\",\\"selected\\":false}]},{\\"type\\":\\"text\\",\\"required\\":false,\\"label\\":\\"Instruction\\",\\"className\\":\\"form-control\\",\\"name\\":\\"text-1698815678379-0\\",\\"subtype\\":\\"text\\"}]"',
+        name: '',
+        description: '',
+        price: 0,
+        estimate_time: 0,
+        additional_details: '',
         available: true,
         image_url: "",
     });
 
+    useEffect(() => {
+        if (isEditMenuPath && id)
+            getManuByID();
+        else
+            navigate(-1);
+    }, []);
+    const handleTab = (event, newValue) => {
+        setCurrentTab(newValue);
+    };
     const onclickNext = async () => {
-        if (currentTab === 0)
+        if (currentTab === 0 && state.name && state.description && state.price && state.estimate_time)
             setCurrentTab(currentTab + 1);
         else
             setError(currentTab);
@@ -49,9 +65,7 @@ const ManuCreate = (props) => {
             setCurrentTab(currentTab - 1);
         else
             navigate(-1);
-
     };
-
     const createManuControl = () => {
         const onSuccess = data => {
             successMessage("Organization created successfully.");
@@ -60,23 +74,51 @@ const ManuCreate = (props) => {
             setErrorMsg(err?.data?.errors);
             errorMessage(err.data?.title || err.data?.message);
         };
+        console.log(formBuilder?.formData)
         createManu({...state, additional_details: JSON.stringify(formBuilder?.formData)}, onSuccess, onFail);
     };
+    const getManuByID = () => {
+        const onSuccess = data => {
+            data.additional_details = JSON.parse(data.additional_details);
+            data.itemId = data._id;
+            delete data._id;
+            setState(data);
+        };
+        const onFail = err => {
+            setErrorMsg(err?.data?.errors);
+            errorMessage(err.data?.title || err.data?.message);
+        };
+        getManu({id}, onSuccess, onFail);
+    };
+
     return (
         <Row>
             <Col xs={24}>
-                <React.Fragment>
-                    <LightBlueButton className="w-110" onClick={onclickBack}>Cancel</LightBlueButton>
-                    <GreenButton className="ml-3 w-170"
-                                 onClick={onclickNext}>{currentTab !== 2 ? "Next" : "Create"}</GreenButton>
-                </React.Fragment>
+                {isEditMenuPath ? <div align={"right"}>
+                        <LightBlueButton className="w-110 border-radius-25" onClick={onclickBack}>Cancel</LightBlueButton>
+                        <GreenButton className="ml-3 w-170"
+                                     onClick={onclickNext}>Save</GreenButton>
+                    </div> :
+                    <div align={"right"}>
+                        <LightBlueButton className="w-110 border-radius-25"
+                                         onClick={onclickBack}>Cancel</LightBlueButton>
+                        <GreenButton className="ml-3 w-170"
+                                     onClick={onclickNext}>{currentTab !== 4 ? "Next" : "Create"}</GreenButton>
+                    </div>}
                 <div>
-                    <ProgressBar labelList={tab} index={currentTab}/>
+                    {isEditMenuPath ? <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
+                            <Tabs value={currentTab} onChange={handleTab} centered>
+                                <Tab label="Overview"/>
+                                <Tab label="Edit Template"/>
+                            </Tabs>
+                        </Box> :
+                        <ProgressBar labelList={tab} index={currentTab}/>}
                     <Forms errorMsg={errorMsg} loading={false} error={error}
+                           isEditMenuPath={isEditMenuPath}
                            manuData={state}
                            setFormBuilder={setFormBuilder}
                            formBuilder={formBuilder}
-                           onChangeState={setState} tab={tab} currentTab={currentTab}/>
+                           onChangeState={setState} tab={tab} currentTab={currentTab} setCurrentTab={setCurrentTab}/>
                 </div>
             </Col>
         </Row>
@@ -86,6 +128,7 @@ const ManuCreate = (props) => {
 const mapDispatchToProps = dispatch => {
     return {
         createManu: (data, onSuccess, onFail) => dispatch(createManu({data, onSuccess, onFail})),
+        getManu: (data, onSuccess, onFail) => dispatch(fetchManuById({data, onSuccess, onFail})),
     };
 };
 

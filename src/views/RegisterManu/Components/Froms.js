@@ -6,6 +6,7 @@ import CreateTemplate from "./CreateTemplate";
 const Forms = (props) => {
     const {
         tab,
+        isEditMenuPath,
         loading,
         errorMsg,
         error,
@@ -13,7 +14,8 @@ const Forms = (props) => {
         onChangeState,
         manuData,
         formBuilder,
-        setFormBuilder
+        setFormBuilder,
+        setCurrentTab
     } = props;
 
     const handleChange = (e) => {
@@ -29,6 +31,7 @@ const Forms = (props) => {
 
     return (
         <div className="organization">
+
             {currentTab !== 1 && <InputBox
                 loading={loading}
                 title={tab[currentTab].label}

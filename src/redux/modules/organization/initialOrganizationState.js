@@ -14,4 +14,7 @@ export const initialOrganizationState = () => ({
     createManuLoading: false,
     createManuFailure: false,
     createManuLoaded: false,
+    fetchManuByIdLoading: false,
+    fetchManuByIdFailure: false,
+    fetchManuByIdLoaded: false,
 });
