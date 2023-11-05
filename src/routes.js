@@ -8,6 +8,7 @@ import TableReservationForm from "./views/TableRegister/TableReservationForm";
 import ManuCreate from "./views/RegisterManu/ManuCreate";
 import SignUp from './views/SignUp/SignUp';
 import DataDashboard from "./views/DataDashboard/DataDashboard";
+import OrderManagement from "./views/OrderManagement/OrderManagement";
 import CartSummary from './views/CartSummary/CartSummary';
 
 const routes = [
@@ -36,6 +37,7 @@ const routes = [
     {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
     {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
     {path: '/restaurant-home', name: 'Data Dashboard', component: <DataDashboard/>},
+    {path: '/order-management', name: 'Order Management', component: <OrderManagement/>},
     {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>}
 ];
 
