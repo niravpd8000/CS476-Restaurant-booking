@@ -12,8 +12,8 @@ function OrderManagement() {
               <TableCell>Order Number</TableCell>
               <TableCell>Customer Name</TableCell>
               <TableCell>Estimate time to pick up</TableCell>
-              <TableCell style={{ width: 120 }}></TableCell> {/* Set width /}
-              <TableCell style={{ width: 120 }}></TableCell> {/ Set width */}
+              <TableCell style={{ width: 120 }}></TableCell>
+              <TableCell style={{ width: 120 }}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
