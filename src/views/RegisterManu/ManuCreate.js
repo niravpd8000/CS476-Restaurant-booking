@@ -68,7 +68,7 @@ const ManuCreate = (props) => {
     };
     const createManuControl = () => {
         const onSuccess = data => {
-            successMessage("Organization created successfully.");
+            successMessage(isEditMenuPath?"Menu Updated Successfully":"Menu created successfully.");
         };
         const onFail = err => {
             setErrorMsg(err?.data?.errors);

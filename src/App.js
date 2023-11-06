@@ -2,6 +2,7 @@ import React from 'react';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import routes from "./routes";
 import Header from "./containers/Header/Header";
+import Unauthorised403 from "./reusable/Unauthorised403";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                                     )
                                 })
                             }
+                            <Route path="*" element={<Unauthorised403 />} />
                         </Routes>
                     </div>
                 </div>

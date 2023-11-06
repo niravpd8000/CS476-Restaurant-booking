@@ -82,7 +82,7 @@ export const successMessage = data => {
         style: {
             position: "absolute",
             right: "0px",
-            top: "150px",
+            top: "60px",
         }
     });
 };

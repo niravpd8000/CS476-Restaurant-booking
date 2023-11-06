@@ -55,4 +55,11 @@ const TextField = ({
         </div>
     )
 };
+
+// Factory function for generating custom TextField components
+export const createCustomTextField = (customProps) => {
+    return (props) => {
+        return <TextField {...props} {...customProps} />;
+    };
+};
 export default TextField

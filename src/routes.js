@@ -20,24 +20,29 @@ const routes = [
     {
         path: '/organizations/create',
         name: 'Restaurant Register',
+        auth: 'PUBLIC',
         component: <RegisterRestaurant/>,
     },
     {
         path: '/Manu/create',
         name: 'Manu Create',
+        auth: 'ADMIN',
         component: <ManuCreate/>
 
     },
     {
         path: '/meals/:id',
         name: 'Meals name',
+        auth: 'PUBLIC',
         component: <Meals/>,
     },
     {
         path: '/table',
         name: 'Table',
+        auth: 'PUBLIC',
         component: <TableReservationForm/>,
     },
+<<<<<<< Updated upstream
     {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
     {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
     {path: '/restaurant-home', name: 'Data Dashboard', component: <DataDashboard/>},
@@ -48,6 +53,16 @@ const routes = [
     {path: '/edit-manu/:id', name: 'Edit Manu', component: <ManuCreate/>},
     {path: '/payment', name: 'Payment', component: <Payment/>},
     {path: '/reciept', name: 'Reciept', component: <Reciept/>},
+=======
+    {path: '/sign-in', name: 'Sign In', auth: 'PUBLIC', component: <SignIn/>},
+    {path: '/sign-up', name: 'Sign Up', auth: 'PUBLIC', component: <SignUp/>},
+    {path: '/restaurant-home', name: 'Data Dashboard', auth: 'ADMIN', component: <DataDashboard/>},
+    {path: '/order-management', name: 'Order Management', auth: 'ADMIN', component: <OrderManagement/>},
+    {path: '/CartSummary', name: 'Cart Summary', auth: 'PUBLIC', component: <CartSummary/>},
+    {path: '/PreviousOrder', name: 'Previous Order', auth: 'PUBLIC', component: <PreviousOrder/>},
+    {path: '/manage-manu', name: 'Manage Manu', auth: 'ADMIN', component: <ManageManu/>},
+    {path: '/edit-manu/:id', name: 'Edit Manu', auth: 'ADMIN', component: <ManuCreate/>},
+>>>>>>> Stashed changes
 ];
 
 export default routes;

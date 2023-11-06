@@ -122,10 +122,11 @@ function Header() {
                     >
                         DineEase
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    {getFromStorage("accessToken") && <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {adminPages.map((page, key) => (
                             page.badge ?
-                                <Badge key={key} badgeContent={4} color="primary" style={{marginTop: "16px", marginRight: "8px"}}>
+                                <Badge key={key} badgeContent={4} color="primary"
+                                       style={{marginTop: "16px", marginRight: "8px"}}>
                                     <Button
                                         style={{height: "fit-content", margin: "0"}}
                                         key={key}
@@ -143,25 +144,23 @@ function Header() {
                                     {page.label}
                                 </Button>
                         ))}
-                    </Box>
+                    </Box>}
 
-                    <Box sx={{flexGrow: 0}}>
-                        {!getFromStorage("accessToken") && <Grid>
-                            <LightBlueButton style={{borderRadius: "20px"}} onClick={() => navigate("/sign-in")}>Sign
-                                In</LightBlueButton>
-                            <GreenButton onClick={() => navigate("/sign-up")}>Sign Up</GreenButton>
-                        </Grid>}
-
-                    </Box>
-                    <Box>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-haspopup="true"
-                            color="inherit"
-                        >
-                            <Logout/>
-                        </IconButton>
+                    <Box sx={{flexGrow: 1, justifyContent: 'flex-end', display:'flex'}}>
+                        {!getFromStorage("accessToken") ? <Grid>
+                                <LightBlueButton style={{borderRadius: "20px"}} onClick={() => navigate("/sign-in")}>Sign
+                                    In</LightBlueButton>
+                                <GreenButton onClick={() => navigate("/sign-up")}>Sign Up</GreenButton>
+                            </Grid> :
+                            <IconButton
+                                size="large"
+                                aria-label="show more"
+                                aria-haspopup="true"
+                                color="inherit"
+                                onClick={() => localStorage.clear()}
+                            >
+                                <Logout/>
+                            </IconButton>}
                     </Box>
                 </Toolbar>
             </Container>
