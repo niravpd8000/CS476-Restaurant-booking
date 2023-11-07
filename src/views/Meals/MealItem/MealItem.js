@@ -7,7 +7,9 @@ const MealItem = ({manuItem}) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <>
-            {manuItem.available && <AddToCartModal visible={modalVisible} manuItem={manuItem}/>
+            {manuItem.available && <AddToCartModal
+                onCancel={() => setModalVisible(false)}
+                visible={modalVisible} manuItem={manuItem}/>
             }
             <div className={"meal-card"}>
                 <div className={"child left-div"}>
@@ -20,7 +22,8 @@ const MealItem = ({manuItem}) => {
                 </div>
                 <div className={"add-div"}>
                     <button disabled={!manuItem.available} className={"add-button"}
-                            onClick={() => manuItem.available ? setModalVisible(true) : null}>{manuItem.available ? "add" : "Out of Stock"}
+                            onClick={() => manuItem.available ? setModalVisible(true) : null}
+                    >{manuItem.available ? "add" : "Out of Stock"}
                     </button>
                 </div>
             </div>

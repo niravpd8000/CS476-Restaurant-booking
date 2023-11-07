@@ -5,5 +5,7 @@ export const getRestManuById = 'rest/getManuByRestaurantId';
 export const manuCreate = 'rest/createManu';
 export const manuById = 'rest/getManuById';
 export const manuUpdate = 'rest/updateManu';
+export const cartUpdate = 'cart/createUpdate';
+export const getCart = 'cart';
 export const signIn = 'auth/signin';
 export const signUp = 'auth/signup';

@@ -84,7 +84,8 @@ export const request = ({
             const errRes = get(err, "response", err);
             if (errRes.status === 401) {
                 try {
-
+                    localStorage.clear();
+                    window.location.href = "/sign-in";
                 } catch (e) {
                     console.log(e);
                 }
@@ -115,3 +116,4 @@ export const getRequest = params => request({...params, method: "get"});
 export const postRequest = params => request({...params, method: "post"});
 export const putRequest = params => request({...params, method: "put"});
 export const deleteRequest = params => request({...params, method: "delete"});
+

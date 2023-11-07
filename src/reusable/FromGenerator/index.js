@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./FormGenerator.scss";
 import TextField from "../TextField";
 import RadioGroup from "../RadioGroup";
@@ -6,44 +6,51 @@ import CheckBoxGroup from "../CheckBoxGroup";
 
 const FormGenerator = props => {
     const {className, error, disabled, dataJSON, handleForm} = props;
+    const [state, setState] = useState(JSON.parse(dataJSON));
+    console.log(state)
     return (
         <div className={`form-generator ${className || ""}`}>
             {
-                JSON.parse(dataJSON).map((item, index) => {
+                JSON.parse(dataJSON)?.map((item, index) => {
 
                     return (
                         <div key={index}>
                             {
-                                item?.type === "header" &&
-                                <h3>{item?.label}</h3>
+                                state[index]?.type === "header" &&
+                                <h4>{state[index]?.label}</h4>
                             }
                             {
-                                (item?.type === "text") &&
-                                <TextField required={item.required} disabled={disabled}
-                                           errorMsg={item?.label + " is required"}
-                                           error={error && !item?.value && item.required}
+                                (state[index]?.type === "text") &&
+                                <TextField required={state[index].required} disabled={disabled}
+                                           errorMsg={state[index]?.label + " is required"}
+                                           error={error && !state[index]?.value && state[index].required}
                                            onChange={(e) => {
-                                               item.value = e.target.value;
-                                               handleForm(e);
-                                           }} {...item}/>
+                                               state[index].value = e.target.value;
+                                               setState({...state});
+                                               handleForm({...state});
+                                           }} {...state[index]}/>
                             }
                             {
-                                item?.type === "checkbox-group" &&
-                                <CheckBoxGroup disabled={disabled} errorMsg={item?.label + " is required"}
-                                               error={error && !item?.value && item.required}
+                                state[index]?.type === "checkbox-group" &&
+                                <CheckBoxGroup disabled={disabled}
+                                               errorMsg={state[index]?.label + " is required"}
+                                               error={error && !state[index]?.value && state[index].required}
                                                onChange={(value) => {
-                                                   item.value = value;
-                                                   // handleForm(value);
-                                               }} {...item}/>
+                                                   state[index].value = value;
+                                                   setState({...state});
+                                                   handleForm({...state});
+                                               }} {...state[index]}/>
                             }
                             {
-                                item?.type === "radio-group" &&
-                                <RadioGroup disabled={disabled} errorMsg={item?.label + " is required"}
-                                            error={error && !item?.value && item.required}
+                                state[index]?.type === "radio-group" &&
+                                <RadioGroup disabled={disabled} errorMsg={state[index]?.label + " is required"}
+                                            error={error && !state[index]?.value && state[index].required}
                                             onChange={(e) => {
-                                                item.value = e;
-                                                handleForm(e);
-                                            }} {...item}/>
+                                                item.value=e.value
+                                                state[index].value = e.value;
+                                                setState({...state});
+                                                handleForm({...state});
+                                            }} {...state[index]}/>
                             }
                         </div>
                     )

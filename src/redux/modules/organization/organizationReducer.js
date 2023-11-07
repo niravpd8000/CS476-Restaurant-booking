@@ -135,6 +135,27 @@ export const organizationReducer = handleActions(
             fetchManuByIdFailure: false,
             fetchManuByIdLoaded: true
         }),
+        [requestPending(OrganizationConstants.CART)]: state => ({
+            ...state,
+            cartUpdateLoading: true,
+            cartUpdateFailure: false,
+            cartUpdateLoaded: false
+        }),
+        [requestFail(OrganizationConstants.CART)]: state => ({
+            ...state,
+            cartUpdateLoading: false,
+            cartUpdateFailure: true,
+            cartUpdateLoaded: true
+        }),
+        [requestSuccess(OrganizationConstants.CART)]: (
+            state,
+            action
+        ) => ({
+            ...state,
+            cartUpdateLoading: false,
+            cartUpdateFailure: false,
+            cartUpdateLoaded: true
+        }),
     },
     initialOrganizationState()
 );

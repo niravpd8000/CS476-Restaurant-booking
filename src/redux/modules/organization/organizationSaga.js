@@ -4,7 +4,7 @@ import {OrganizationConstants} from "./organizationConstants";
 import {config} from "../../../utils/config";
 // APIS
 import * as API from '../../../utils/apiConsts';
-import {manuCreate} from "../../../utils/apiConsts";
+import {getCart, manuCreate} from "../../../utils/apiConsts";
 
 function* createOrganization(action) {
     yield call(
@@ -95,6 +95,35 @@ function* getManuById(action) {
     );
 }
 
+function* cartCreateUpdate(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.CART,
+            method: "post",
+            baseURL: config.URL,
+            url: API.cartUpdate,
+            data: action.payload.data,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
+
+function* fetchCart(action) {
+    yield call(
+        request({
+            type: OrganizationConstants.FETCH_CART,
+            method: "get",
+            baseURL: config.URL,
+            url: API.getCart,
+            success: action.payload.onSuccess,
+            fail: action.payload.onFail
+        }),
+        action
+    );
+}
+
 export default function* rootSaga() {
     yield takeLatest(OrganizationConstants.CREATE_ORGANIZATION, createOrganization);
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATIONS, getOrganizationList);
@@ -102,4 +131,6 @@ export default function* rootSaga() {
     yield takeLatest(OrganizationConstants.FETCH_ORGANIZATION_MANU_BY_ID, getOrganizationManuById);
     yield takeLatest(OrganizationConstants.CREATE_MANU, createManu);
     yield takeLatest(OrganizationConstants.FETCH_MANU_BY_ID, getManuById);
+    yield takeLatest(OrganizationConstants.CART, cartCreateUpdate);
+    yield takeLatest(OrganizationConstants.FETCH_CART, fetchCart);
 }

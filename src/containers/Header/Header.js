@@ -25,14 +25,10 @@ const userPages = [{label: 'Product'}, {label: 'Pricing'}, {label: 'Blog'}, {lab
 
 function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
     const navigate = useNavigate();
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    // const handleOpenUserMenu = (event) => {
-    //     setAnchorElUser(event.currentTarget);
-    // };
 
     const handleCloseNavMenu = (goto) => {
         setAnchorElNav(null);
@@ -40,9 +36,6 @@ function Header() {
 
     };
 
-    // const handleCloseUserMenu = () => {
-    //     setAnchorElUser(null);
-    // };
 
     return (
         <AppBar position="fixed" style={{background: "red"}}>
@@ -146,7 +139,7 @@ function Header() {
                         ))}
                     </Box>}
 
-                    <Box sx={{flexGrow: 1, justifyContent: 'flex-end', display:'flex'}}>
+                    <Box sx={{flexGrow: 1, justifyContent: 'flex-end', display: 'flex'}}>
                         {!getFromStorage("accessToken") ? <Grid>
                                 <LightBlueButton style={{borderRadius: "20px"}} onClick={() => navigate("/sign-in")}>Sign
                                     In</LightBlueButton>
@@ -157,7 +150,10 @@ function Header() {
                                 aria-label="show more"
                                 aria-haspopup="true"
                                 color="inherit"
-                                onClick={() => localStorage.clear()}
+                                onClick={() => {
+                                    localStorage.clear();
+                                    navigate("/sign-in");
+                                }}
                             >
                                 <Logout/>
                             </IconButton>}
