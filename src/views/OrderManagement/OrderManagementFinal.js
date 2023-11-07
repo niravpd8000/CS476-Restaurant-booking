@@ -5,7 +5,7 @@ import { TabsList } from '@mui/base/TabsList';
 import { TabPanel } from '@mui/base/TabPanel';
 import { Tabs } from '@mui/base/Tabs';
 
-function OrderManagement() {
+function OrderManagementTemp() {
     return ( <div style={{ padding: 20 }}>
     <h3>Order Management</h3>
 
@@ -95,7 +95,7 @@ function OrderManagement() {
         </div> );
 }
 
-export default OrderManagement;
+export default OrderManagementTemp;
 
 
 

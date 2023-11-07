@@ -8,12 +8,15 @@ import TableReservationForm from "./views/TableRegister/TableReservationForm";
 import ManuCreate from "./views/RegisterManu/ManuCreate";
 import SignUp from './views/SignUp/SignUp';
 import DataDashboard from "./views/DataDashboard/DataDashboard";
-import OrderManagement from "./views/OrderManagement/OrderManagementFinal";
+//import OrderManagement from "./views/OrderManagement/OrderManagementFinal";
 import CartSummary from './views/CartSummary/CartSummary';
 import PreviousOrder from './views/PreviousOrder/PreviousOrder';
 import ManageManu from "./views/ManageManu";
 import Payment from "./views/Payment/Payment";
 import Reciept from "./views/Reciept/Reciept";
+import TableManagement from './views/TableManagement/TableManagement';
+import OrderManagement from './views/OrderManagementUpdated/OrderManagement';
+import OrderManagementTemp from './views/OrderManagement/OrderManagementFinal';
 
 const routes = [
     {path: '/dashboard', name: 'Dashboard', component: <Dashboard/>},
@@ -41,13 +44,16 @@ const routes = [
     {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
     {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
     {path: '/restaurant-home', name: 'Data Dashboard', component: <DataDashboard/>},
-    {path: '/OrderManagementFinal', name: 'Order Management', component: <OrderManagement/>},
+    {path: '/OrderManagementFinal', name: 'Order Management', component: <OrderManagementTemp/>},
     {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>},
     {path: '/PreviousOrder', name: 'Previous Order', component: <PreviousOrder/>},
     {path: '/manage-manu', name: 'Manage Manu', component: <ManageManu/>},
     {path: '/edit-manu/:id', name: 'Edit Manu', component: <ManuCreate/>},
     {path: '/payment', name: 'Payment', component: <Payment/>},
     {path: '/reciept', name: 'Reciept', component: <Reciept/>},
+    {path: 'TableManagement', name: 'TableManagement', component: <TableManagement/>},
+    {path: '/OrderManagement', name: 'Order Management', component: <OrderManagement/>},
+    
 ];
 
 export default routes;
