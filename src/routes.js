@@ -34,7 +34,7 @@ const routes = [
         component: <Meals/>,
     },
     {
-        path: '/table',
+        path: '/table/:restId',
         name: 'Table',
         component: <TableReservationForm/>,
     },

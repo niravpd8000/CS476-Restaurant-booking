@@ -14,7 +14,7 @@ const ProgressBar = props => {
                     <span className="align-content-end">{index + 1}/{labelList.length}</span>
                 </Col>
             </Row>
-            <div className="progress">
+            <div className="progress" style={{height:"8px"}}>
                 <div className="progress-bar" role="progressbar"
                      style={{width: `${((index + 1) / labelList.length) * 100}%`}}
                      aria-valuemin="0"

@@ -18,7 +18,6 @@ const InputBox = props => {
                     <hr className="divider mb-4"/>
                 </>
             }
-            {loading && <Loading/>}
             {props.children}
         </div>
     )

@@ -182,21 +182,25 @@ export const downloadFile2 = (dataUrl, filename) => {
 };
 
 export const firstLetterLowerCase = (text) => text[0].toLowerCase() + text.substring(1);
-export const errorFieldToObject = (err) => {
-    let error = {};
-    if (!err[0]?.field)
-        return err;
-    err.forEach(item => {
-        error = {...error, [firstLetterLowerCase(item?.field)]: item?.message}
-    });
-    return error;
-}
-
-export const isJson = (str) => {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
+export const cartItemValueExtract = (data) => {
+    if (typeof data !== 'object' || data === null) {
+        console.error('Data is not an object.');
+        return '';
     }
-    return true;
-}
+
+    const values = [];
+
+    for (const key in data) {
+        const item = data[key];
+
+        if (item.type === 'text') {
+            values.push(item.value);
+        } else if (item.type === 'checkbox-group' || item.type === 'radio-group') {
+            const selectedValues = item.values.filter(val => val.selected);
+            const selectedValueString = selectedValues.map(val => val.value).join(', ');
+            values.push(selectedValueString);
+        }
+    }
+
+    return values.filter(value => value).join(', ');
+};

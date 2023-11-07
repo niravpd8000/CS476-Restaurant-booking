@@ -7,10 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 
 const tab = [
-    {label: "Overview"},
-    {label: "Location & Contacts"},
-    {label: "Timing"},
-    {label: "Categories"}
+    {label: "Overview"}
 ]
 
 const TableReservationForm = (props) => {

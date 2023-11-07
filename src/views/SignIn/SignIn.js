@@ -35,7 +35,6 @@ const SignIn = ({login, authorisation}) => {
 
     return (
         <Row className="container-center signIn-box">
-            {authorisation.loginLoading && <Loading/>}
             <Col xs={24} align={"center"}>
                 <SettingBox className="container-fluid">
                     <div align="left">

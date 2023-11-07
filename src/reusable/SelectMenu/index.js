@@ -30,7 +30,6 @@ const SelectMenu = props => {
         if (onBlur)
             onBlur()
     };
-    console.log(options)
     return (
         <>
             {label ? <div className={`selectMenu mt-20 ${parentClass || ""} `}>

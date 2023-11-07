@@ -3,6 +3,7 @@ import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import routes from "./routes";
 import Header from "./containers/Header/Header";
 import Unauthorised403 from "./reusable/Unauthorised403";
+import Loading from "./reusable/Loading";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
                 <div className="c-wrapper">
                     <div className="layout-display-center">
                         <Header/>
+                        <Loading/>
                         <div style={{marginTop: "90px"}}></div>
                         <Routes>
                             {

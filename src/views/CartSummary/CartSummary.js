@@ -4,11 +4,12 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {Button, Typography} from '@mui/material';
 import {useNavigate} from "react-router-dom";
-import {errorMessage, successMessage} from "../../utils/common";
+import {cartItemValueExtract, errorMessage, successMessage} from "../../utils/common";
 import {cartUpdate, fetchCart} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
+import Loading from "../../reusable/Loading";
 
-function CartSummary({getCart}) {
+function CartSummary({getCart, updateCart, organization}) {
     const navigate = useNavigate();
     const [cartData, setCartData] = useState([]);
 
@@ -28,13 +29,28 @@ function CartSummary({getCart}) {
             onFail
         );
     };
+
+    const addToCart = (manuItem, quantity) => {
+        const onSuccess = response => {
+            getCartData();
+        };
+        const onFail = err => {
+            errorMessage(err.data?.title || err.data?.message);
+        };
+        updateCart(
+            {item: manuItem.item, quantity: quantity, restaurantId: manuItem?.item.rest_id, cartItemId: manuItem._id},
+            onSuccess,
+            onFail
+        );
+    };
+
+
     return (
 
         <Box p={4}>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <Typography variant="h5">Your cart from Subway</Typography>
-                    <Typography variant="body1">Maximum order limit: CA$150.00</Typography>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
@@ -45,16 +61,17 @@ function CartSummary({getCart}) {
                                 alt="Product"/>
                         </div>
                         <Typography variant="h6">{item?.item?.name}</Typography>
-                        <Typography variant="body1"> </Typography>
+                        <Typography
+                            variant="body1"> {cartItemValueExtract(JSON.parse(item?.item?.additional_details) || {})} </Typography>
                         <Grid container spacing={2} alignItems="center">
                             <Grid item>
-                                <Button variant="outlined">-</Button>
+                                <Button variant="outlined" onClick={() => addToCart(item, item.quantity - 1)}>-</Button>
                             </Grid>
                             <Grid item>
                                 <Typography>{item.quantity}</Typography>
                             </Grid>
                             <Grid item>
-                                <Button variant="outlined">+</Button>
+                                <Button variant="outlined" onClick={() => addToCart(item, item.quantity + 1)}>+</Button>
                             </Grid>
                         </Grid>
                         <Typography variant="subtitle1">CA${item?.item?.price}</Typography>
@@ -65,7 +82,8 @@ function CartSummary({getCart}) {
                     <div className="checkout-container">
                         <Button variant="contained" color="primary"
                                 onClick={() => navigate("/payment")}>Checkout</Button>
-                        <Typography variant="h6">Total: CA$15.18</Typography>
+                        <Typography variant="h6">Total:
+                            CA${cartData.reduce((sum, product) => sum + product?.item?.price * product?.quantity, 0)}</Typography>
                     </div>
                 </Grid>
             </Grid>
@@ -76,7 +94,14 @@ function CartSummary({getCart}) {
 const mapDispatchToProps = dispatch => {
     return {
         getCart: (data, onSuccess, onFail) => dispatch(fetchCart({data, onSuccess, onFail})),
+        updateCart: (data, onSuccess, onFail) => dispatch(cartUpdate({data, onSuccess, onFail})),
     };
 };
 
-export default connect(null, mapDispatchToProps)(CartSummary);
+const mapStateToProps = state => {
+    return {
+        organization: state.organization,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartSummary);

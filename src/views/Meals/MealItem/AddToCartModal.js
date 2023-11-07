@@ -45,8 +45,7 @@ const AddToCartModal = (props) => {
                 onSuccess,
                 onFail
             );
-        }
-    ;
+        };
     return (
         <CustomModal onClickSubmit={() => {
             addToCart()

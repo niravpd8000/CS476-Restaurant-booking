@@ -38,7 +38,6 @@ export const request = ({
                 });
             }
             const authToken = `${localStorage.getItem("accessToken")}`;
-            console.log(authToken)
             axios.defaults.baseURL = baseURL;
 
             axios.defaults.headers.common = {

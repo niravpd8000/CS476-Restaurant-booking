@@ -7,7 +7,6 @@ import CheckBoxGroup from "../CheckBoxGroup";
 const FormGenerator = props => {
     const {className, error, disabled, dataJSON, handleForm} = props;
     const [state, setState] = useState(JSON.parse(dataJSON));
-    console.log(state)
     return (
         <div className={`form-generator ${className || ""}`}>
             {

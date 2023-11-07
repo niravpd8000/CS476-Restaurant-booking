@@ -5,8 +5,9 @@ import {Grid} from "@mui/material";
 import {connect} from "react-redux";
 import {fetchOrg} from "../../redux/modules/organization/organizationActions";
 import {errorMessage, getRestIdFromToken, parseJwt} from "../../utils/common";
+import Loading from "../../reusable/Loading";
 
-const Dashboard = ({getOrgList}) => {
+const Dashboard = ({getOrgList, organization}) => {
     const navigate = useNavigate();
     const [restList, setRestList] = useState([]);
 
@@ -26,7 +27,6 @@ const Dashboard = ({getOrgList}) => {
             onFail
         );
     };
-    console.log(getRestIdFromToken())
     return (
         <>
             <div className="dashboard-wrapper mb-4">
@@ -52,4 +52,10 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(Dashboard)
+const mapStateToProps = state => {
+    return {
+        organization: state.organization,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

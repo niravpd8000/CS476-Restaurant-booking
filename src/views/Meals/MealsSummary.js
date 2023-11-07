@@ -1,13 +1,21 @@
 import classes from './MealsSummary.module.css';
+import GreenButton from "../../reusable/GreenButton";
+import {useNavigate} from "react-router-dom";
+import {useParams} from 'react-router-dom';
 
 const MealsSummary = ({restData}) => {
+    const navigate = useNavigate();
+    const {id} = useParams();
     return (
-        <section className={classes.summary}>
-            <h2 color={"white"}>{restData.name}</h2>
-            <p>
-                {restData.description}
-            </p>
-        </section>
+        <div className={classes.summary}>
+            <section>
+                <h2 color={"white"}>{restData.name}</h2>
+                <p>
+                    {restData.description}
+                </p>
+            </section>
+            <GreenButton onClick={() => navigate(`/table/${id}`)}>Reserve A Table</GreenButton>
+        </div>
     );
 };
 
