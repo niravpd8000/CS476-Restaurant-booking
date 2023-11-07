@@ -54,32 +54,52 @@ function CartSummary({getCart, updateCart, organization}) {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                    {cartData.map((item, index) => <Paper key={index} style={{padding: '20px'}}>
-                        <div className="cart-item-image">
-                            <img
-                                src="https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt="Product"/>
-                        </div>
-                        <Typography variant="h6">{item?.item?.name}</Typography>
-                        <Typography
-                            variant="body1"> {cartItemValueExtract(JSON.parse(item?.item?.additional_details) || {})} </Typography>
-                        <Grid container spacing={2} alignItems="center">
-                            <Grid item>
-                                <Button variant="outlined" onClick={() => addToCart(item, item.quantity - 1)}>-</Button>
+                    <Paper style={{padding: '20px'}}>
+                        {cartData.map((item, index) =>
+                            <Grid key={index} container style={{
+                                margin: " 10px 0",
+                                padding: "15px",
+                                border: "1px solid #eeeaea"
+                            }}>
+                                <Grid item xs={4} className="cart-item-image">
+                                    <img
+                                        src="https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                        alt="Product"/>
+                                </Grid>
+                                <Grid container item xs={8} style={{padding: "0 10px"}}>
+                                    <Grid item xs={6}>
+                                        <Typography variant="h6">{item?.item?.name}</Typography>
+                                        <Typography
+                                            variant="body1"> {cartItemValueExtract(JSON.parse(item?.item?.additional_details) || {})} </Typography>
+                                    </Grid>
+                                    <Grid item xs={6} align={"right"}>
+                                        <Typography variant="subtitle1">CA${item?.item?.price}</Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Grid container spacing={2} style={{display: "flex", justifyContent: "center"}}>
+                                            <Grid item>
+                                                <Button variant="outlined"
+                                                        onClick={() => addToCart(item, item.quantity - 1)}>-</Button>
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography style={{margin:"6px 0"}}>{item.quantity}</Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Button variant="outlined"
+                                                        onClick={() => addToCart(item, item.quantity + 1)}>+</Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Typography>{item.quantity}</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Button variant="outlined" onClick={() => addToCart(item, item.quantity + 1)}>+</Button>
-                            </Grid>
-                        </Grid>
-                        <Typography variant="subtitle1">CA${item?.item?.price}</Typography>
-                    </Paper>)}
+                        )}
+                    </Paper>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
                     <div className="checkout-container">
+                        <Button variant="contained" color="primary"
+                                onClick={() => navigate("/payment")}>Schedule Pick Up</Button>
                         <Button variant="contained" color="primary"
                                 onClick={() => navigate("/payment")}>Checkout</Button>
                         <Typography variant="h6">Total:
