@@ -1,8 +1,4 @@
-//import React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import {Button, Typography} from '@mui/material';
+import React from 'react';
 import './Payment.css';
 import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';

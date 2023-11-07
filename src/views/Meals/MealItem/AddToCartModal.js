@@ -11,16 +11,12 @@ import Grid from "@mui/material/Grid";
 import {Button, Typography} from "@mui/material";
 
 const AddToCartModal = (props) => {
-    const {visible, onCancel, onSubmit, manuItem, updateCart} = props;
-    const [category, setCategory] = useState("");
+    const {visible, onCancel, manuItem, updateCart} = props;
     const [quantity, setQty] = useState(1);
-    const [error, setError] = useState(false);
     const [state, setState] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        setCategory("");
-        setError(false);
         delete manuItem._id;
     }, [visible]);
     const handleForm = (data) => {

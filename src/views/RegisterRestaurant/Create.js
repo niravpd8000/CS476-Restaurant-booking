@@ -26,7 +26,7 @@ const tab = [
 
 const Create = (props) => {
     const navigate = useNavigate();
-    const {createOrg, organization} = props;
+    const {createOrg} = props;
     const [currentTab, setCurrentTab] = useState(0);
     const [error, setError] = useState(-1);
 

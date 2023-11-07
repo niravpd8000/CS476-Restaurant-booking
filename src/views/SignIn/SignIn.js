@@ -6,10 +6,8 @@ import SettingBox from "../../reusable/SettingBox";
 import {Col, Row} from "antd";
 import {errorMessage} from "../../utils/common";
 import {useNavigate} from "react-router-dom";
-import {fetchOrg} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
 import {login} from "../../redux/modules/authorisation/authorisationActions";
-import Loading from "../../reusable/Loading";
 
 const SignIn = ({login, authorisation}) => {
     const navigate = useNavigate();
@@ -42,12 +40,12 @@ const SignIn = ({login, authorisation}) => {
                         <TextField errorMsg="Please enter Username" required label="Username"
                                    value={userName}
                                    name="userName"
-                            // error={error && !userName}
+                                   error={error && !userName}
                                    onChange={(e) => setUserName(e.target.value)}
                                    placeholder="Enter Username "/>
                         <TextField errorMsg="Please enter Password"
                                    type="password"
-                            // error={error && !password}
+                                   error={error && !password}
                                    required label="Password" value={password} name="password"
                                    onChange={(e) => setPassword(e.target.value)}
                                    placeholder="Enter password"/>

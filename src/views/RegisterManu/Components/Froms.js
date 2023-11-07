@@ -6,7 +6,6 @@ import CreateTemplate from "./CreateTemplate";
 const Forms = (props) => {
     const {
         tab,
-        isEditMenuPath,
         loading,
         errorMsg,
         error,
@@ -15,13 +14,12 @@ const Forms = (props) => {
         manuData,
         formBuilder,
         setFormBuilder,
-        setCurrentTab
     } = props;
 
     const handleChange = (e) => {
         let {name, value} = e.target ? e.target : e;
-        if (name == "price" || name == "estimate_time")
-            value = (name == "price" || name == "estimate_time") && value >= 0 ? value : 0;
+        if (name === "price" || name === "estimate_time")
+            value = (name === "price" || name === "estimate_time") && value >= 0 ? value : 0;
         onChangeState(prevState => ({
             ...prevState,
             [name]: value

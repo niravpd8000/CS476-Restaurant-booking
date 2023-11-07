@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import InputBox from "../../../reusable/InputBox";
 import LocationAndContact from "./LocationAndContact";
 import TableDetails from "./TableDetails";
