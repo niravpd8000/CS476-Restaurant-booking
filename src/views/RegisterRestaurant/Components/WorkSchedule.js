@@ -57,7 +57,7 @@ const WorkSchedule = (props) => {
                                                     }}
                                                                 defaultValue={moment(time.endTime, 'hh:mm A')}
                                                                 format='hh:mm A'/>
-                                                    {index ? <img onClick={() => onDeleteHours(key, index)}
+                                                    {index ? <img alt="Cross" onClick={() => onDeleteHours(key, index)}
                                                                   className="ml-1 cursor-pointer" src={Cross}/> : ''}
                                                 </div>
                                             );

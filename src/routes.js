@@ -51,7 +51,7 @@ const routes = [
     {path: '/edit-manu/:id', name: 'Edit Manu', component: <ManuCreate/>},
     {path: '/payment', name: 'Payment', component: <Payment/>},
     {path: '/reciept', name: 'Reciept', component: <Reciept/>},
-    {path: 'TableManagement', name: 'TableManagement', component: <TableManagement/>},
+    {path: '/TableManagement', name: 'TableManagement', component: <TableManagement/>},
     {path: '/OrderManagement', name: 'Order Management', component: <OrderManagement/>},
     
 ];

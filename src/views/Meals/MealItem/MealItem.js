@@ -17,7 +17,7 @@ const MealItem = ({manuItem}) => {
                     <span className={"price"}>CA$ {manuItem.price}</span>
                     <span className={"price"}>{manuItem.description}</span>
                 </div>
-                <div className={"child right-div"}><img width={"110px"} height={"110px"}
+                <div className={"child right-div"}><img alt="menu image" width={"110px"} height={"110px"}
                                                         src={manuItem.image_url || "https://freeiconshop.com/wp-content/uploads/edd/food-outline.png"}/>
                 </div>
                 <div className={"add-div"}>

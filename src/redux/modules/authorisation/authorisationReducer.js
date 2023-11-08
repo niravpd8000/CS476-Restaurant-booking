@@ -6,7 +6,7 @@ import {
     requestPending,
     requestSuccess
 } from "../../../utils/fetch";
-import {parseJwt, setIntoStorage} from "../../../utils/common";
+import {setIntoStorage} from "../../../utils/common";
 
 export const authorisationReducer = handleActions(
     {
