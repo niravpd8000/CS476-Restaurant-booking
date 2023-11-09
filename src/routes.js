@@ -16,44 +16,48 @@ import Payment from "./views/Payment/Payment";
 import Reciept from "./views/Reciept/Reciept";
 import TableManagement from './views/TableManagement/TableManagement';
 import OrderManagement from './views/OrderManagementUpdated/OrderManagement';
-import OrderManagementTemp from './views/OrderManagement/OrderManagementFinal';
+import OrderSummary from "./views/OrderSummary/OrderSummary";
 
 const routes = [
-    {path: '/dashboard', name: 'Dashboard', component: <Dashboard/>},
+    {path: '/dashboard', name: 'Dashboard', auth: "PUBLIC", component: <Dashboard/>},
     {
         path: '/organizations/create',
         name: 'Restaurant Register',
+        auth: 'PUBLIC',
         component: <RegisterRestaurant/>,
     },
     {
         path: '/Manu/create',
         name: 'Manu Create',
+        auth: 'ADMIN',
         component: <ManuCreate/>
 
     },
     {
         path: '/meals/:id',
         name: 'Meals name',
+        auth: 'PUBLIC',
         component: <Meals/>,
     },
     {
         path: '/table/:restId',
         name: 'Table',
+        auth: 'PUBLIC',
         component: <TableReservationForm/>,
     },
-    {path: '/sign-in', name: 'Sign In', component: <SignIn/>},
-    {path: '/sign-up', name: 'Sign Up', component: <SignUp/>},
-    {path: '/restaurant-home', name: 'Data Dashboard', component: <DataDashboard/>},
-    {path: '/OrderManagementFinal', name: 'Order Management', component: <OrderManagementTemp/>},
-    {path: '/CartSummary', name: 'Cart Summary', component: <CartSummary/>},
-    {path: '/PreviousOrder', name: 'Previous Order', component: <PreviousOrder/>},
-    {path: '/manage-manu', name: 'Manage Manu', component: <ManageManu/>},
-    {path: '/edit-manu/:id', name: 'Edit Manu', component: <ManuCreate/>},
+    {path: '/sign-in', name: 'Sign In', auth: 'PUBLIC', component: <SignIn/>},
+    {path: '/sign-up', name: 'Sign Up', auth: 'PUBLIC', component: <SignUp/>},
+    {path: '/restaurant-home', name: 'Data Dashboard', auth: 'ADMIN', component: <DataDashboard/>},
+    {path: '/order-management', name: 'Order Management', auth: 'ADMIN', component: <OrderManagement/>},
+    {path: '/CartSummary', name: 'Cart Summary', auth: 'PUBLIC', component: <CartSummary/>},
+    {path: '/PreviousOrder', name: 'Previous Order', auth: 'PUBLIC', component: <PreviousOrder/>},
+    {path: '/manage-manu', name: 'Manage Manu', auth: 'ADMIN', component: <ManageManu/>},
+    {path: '/edit-manu/:id', name: 'Edit Manu', auth: 'ADMIN', component: <ManuCreate/>},
+    {path: '/order-summary/:id', name: 'Order Details', auth: 'PUBLIC', component: <OrderSummary/>},
+    {path: '/TableManagement', name: 'TableManagement', auth: 'ADMIN', component: <TableManagement/>},
+    {path: '/OrderManagement', name: 'Order Management', auth: 'ADMIN', component: <OrderManagement/>},
     {path: '/payment', name: 'Payment', component: <Payment/>},
     {path: '/reciept', name: 'Reciept', component: <Reciept/>},
-    {path: '/TableManagement', name: 'TableManagement', component: <TableManagement/>},
-    {path: '/OrderManagement', name: 'Order Management', component: <OrderManagement/>},
-    
 ];
 
 export default routes;

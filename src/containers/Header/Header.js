@@ -26,16 +26,16 @@ const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Man
         badge: "orderBadge",
         goto: "/OrderManagement"
     }];
-const userPages = [{label: 'Product'}, {label: 'Pricing'}, {label: 'Blog'}, {label: 'Payment'}];
+const userPages = [{label: 'Product'}, {label: 'Pricing'}, {label: 'ORDER'}, {label: 'Payment'}];
 
 function Header({getCart, organization}) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
     console.log(organization.cartItemQTY);
     useEffect(() => {
-        if (!getRestIdFromToken())
+        if (!getRestIdFromToken() && getFromStorage("accessToken"))
             getCart();
-    }, []);
+    }, [organization.loginLoaded]);
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };

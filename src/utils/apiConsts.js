@@ -10,7 +10,7 @@ export const getCart = 'cart';
 export const createOrder = 'order/create';
 export const updateOrderStatus = "order/updateStatus";
 
-export const getOrderById = 'order/getOrder/';
+export const getOrderById = 'order/getOrder';
 export const getOrderByRestId = 'order/restaurant';
 export const getOrderByUserId = 'order/user';
 export const signIn = 'auth/signin';

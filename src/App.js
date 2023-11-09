@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import routes from "./routes";
 import Header from "./containers/Header/Header";
 import Unauthorised403 from "./reusable/Unauthorised403";
 import Loading from "./reusable/Loading";
+import {getRestIdFromToken} from "./utils/common";
+import {connect} from "react-redux";
 
-function App() {
+function App({authorisation}) {
+    const [auth, setAuth] = useState("PUBLIC");
+    useEffect(() => {
+        setAuth(getRestIdFromToken() ? "ADMIN" : "PUBLIC")
+    }, [authorisation.loginLoaded, authorisation])
     return (
         <BrowserRouter>
             <div className="c-app c-default-layout">
@@ -16,7 +22,7 @@ function App() {
                         <div style={{marginTop: "90px"}}></div>
                         <Routes>
                             {
-                                routes.map((route, idx) => {
+                                routes.filter(route => (auth === "ADMIN" ? route.auth === auth || route.auth === "PUBLIC" : route.auth === "PUBLIC")).map((route, idx) => {
                                     return route.component && (
                                         <Route
                                             key={idx}
@@ -26,7 +32,7 @@ function App() {
                                     )
                                 })
                             }
-                            <Route path="*" element={<Unauthorised403 />} />
+                            <Route path="*" element={<Unauthorised403/>}/>
                         </Routes>
                     </div>
                 </div>
@@ -35,4 +41,10 @@ function App() {
     );
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        authorisation: state.authorisation,
+    };
+};
+
+export default connect(mapStateToProps, null)(App);

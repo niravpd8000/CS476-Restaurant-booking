@@ -10,11 +10,11 @@ const Overview = (props) => {
         <div className="mt-3">
             <UploadImage assetImage name="assetImages" imageSet={manuData.assetImage} onChange={onChange}/>
             <TextField required
-                       errorMsg={errorMsg?.name || "Name is required"} label="Name"
+                       errorMsg={errorMsg?.name || "Dish Name is required"} label="Dish Name"
                        error={errorMsg?.name || (error && !"")}
                        value={manuData.name}
                        name="name"
-                       placeholder="Enter organization name"
+                       placeholder="Enter Dish name"
                        onChange={onChange}/>
             <TextArea required
                       errorMsg={errorMsg?.description || "Description is required"} label="Description"

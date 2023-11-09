@@ -4,8 +4,9 @@
 }
 
 .previous-order-image {
-    width: 120px; 
-    height: 80px; 
+
+    width: 310px;
+    height: 100px;
     object-fit: cover;
     margin-right: 16px;
 }

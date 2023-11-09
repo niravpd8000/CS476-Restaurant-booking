@@ -4,7 +4,7 @@ import "./SignIn.scss";
 import TextField from "../../reusable/TextField";
 import SettingBox from "../../reusable/SettingBox";
 import {Col, Row} from "antd";
-import {errorMessage} from "../../utils/common";
+import {errorMessage, getRestIdFromToken} from "../../utils/common";
 import {useNavigate} from "react-router-dom";
 import {connect} from "react-redux";
 import {login} from "../../redux/modules/authorisation/authorisationActions";
@@ -16,7 +16,10 @@ const SignIn = ({login, authorisation}) => {
     const [error, setError] = useState(false);
     const signIn = () => {
         const onSuccess = response => {
-            navigate("/dashboard")
+            if (getRestIdFromToken())
+                navigate("/restaurant-home")
+            else
+                navigate("/dashboard")
         };
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
