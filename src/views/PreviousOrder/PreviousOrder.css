@@ -13,3 +13,15 @@
 .reorder-button {
     white-space: nowrap;
 }
+
+/* Add any additional styles needed for your rating component */
+.previous-order-image {
+    /* Existing styles */
+    margin-right: 8px; /* Adjust as needed */
+  }
+  
+  /* You can add additional styles for the rating if needed */
+  .rating {
+    /* Your custom styles for the rating component */
+  }
+  
