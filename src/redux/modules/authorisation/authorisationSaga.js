@@ -6,7 +6,6 @@ import {request} from "../../../utils/fetch";
 import {AuthorisationConstants} from "./authorisationConstants";
 // APIS
 import * as API from '../../../utils/apiConsts';
-import {signUp} from "../../../utils/apiConsts";
 
 function* login(action) {
   yield call(

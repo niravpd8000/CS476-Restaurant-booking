@@ -17,10 +17,12 @@ import {useNavigate} from "react-router-dom";
 import {getFromStorage} from "../../utils/common";
 import {Logout} from "@mui/icons-material";
 
-const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Manage Menu', goto: "manage-manu"}, {
-    label: 'Manage reservation',
-    badge: "reserveBadge"
-}, {label: 'Manage Order', badge: "orderBadge"}];
+const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Manage Menu', goto: "manage-manu"},
+    {label: 'Manage reservation', badge: "reserveBadge", goto: "/TableManagement"}, {
+        label: 'Manage Order',
+        badge: "orderBadge",
+        goto:"/OrderManagement"
+    }];
 const userPages = [{label: 'Product'}, {label: 'Pricing'}, {label: 'Blog'}, {label: 'Payment'}];
 
 function Header() {
@@ -35,7 +37,6 @@ function Header() {
         navigate(goto);
 
     };
-
 
     return (
         <AppBar position="fixed" style={{background: "red"}}>
