@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,20 +14,28 @@ import GreenButton from "../../reusable/GreenButton";
 import {Badge, Button, Grid} from "@mui/material";
 import SearchBar from "../../reusable/SearchBar";
 import {useNavigate} from "react-router-dom";
-import {getFromStorage} from "../../utils/common";
+import {getFromStorage, getRestIdFromToken} from "../../utils/common";
 import {Logout} from "@mui/icons-material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {cartUpdate, fetchCart} from "../../redux/modules/organization/organizationActions";
+import {connect} from "react-redux";
 
 const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Manage Menu', goto: "manage-manu"},
     {label: 'Manage reservation', badge: "reserveBadge", goto: "/TableManagement"}, {
         label: 'Manage Order',
         badge: "orderBadge",
-        goto:"/OrderManagement"
+        goto: "/OrderManagement"
     }];
 const userPages = [{label: 'Product'}, {label: 'Pricing'}, {label: 'Blog'}, {label: 'Payment'}];
 
-function Header() {
+function Header({getCart, organization}) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
+    console.log(organization.cartItemQTY);
+    useEffect(() => {
+        if (!getRestIdFromToken())
+            getCart();
+    }, []);
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -117,7 +125,7 @@ function Header() {
                         DineEase
                     </Typography>
                     {getFromStorage("accessToken") && <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {adminPages.map((page, key) => (
+                        {(getRestIdFromToken() ? adminPages : userPages).map((page, key) => (
                             page.badge ?
                                 <Badge key={key} badgeContent={4} color="primary"
                                        style={{marginTop: "16px", marginRight: "8px"}}>
@@ -146,18 +154,38 @@ function Header() {
                                     In</LightBlueButton>
                                 <GreenButton onClick={() => navigate("/sign-up")}>Sign Up</GreenButton>
                             </Grid> :
-                            <IconButton
-                                size="large"
-                                aria-label="show more"
-                                aria-haspopup="true"
-                                color="inherit"
-                                onClick={() => {
-                                    localStorage.clear();
-                                    navigate("/sign-in");
-                                }}
-                            >
-                                <Logout/>
-                            </IconButton>}
+                            <>
+                                <Grid>
+                                    {!getRestIdFromToken() ?
+                                        <Badge badgeContent={organization.cartItemQTY} color="primary"
+                                               style={{marginTop: "4px", marginRight: "50px"}}>
+                                            <IconButton
+                                                size="large"
+                                                aria-label="show more"
+                                                aria-haspopup="true"
+                                                color="inherit"
+                                                style={{padding: 0}}
+                                                onClick={() => {
+                                                    navigate("/cartSummary");
+                                                }}
+                                            >
+                                                <ShoppingCartIcon/>
+                                            </IconButton>
+                                        </Badge> : <></>}
+                                    <IconButton
+                                        size="large"
+                                        aria-label="show more"
+                                        aria-haspopup="true"
+                                        color="inherit"
+                                        onClick={() => {
+                                            localStorage.clear();
+                                            navigate("/sign-in");
+                                        }}
+                                    >
+                                        <Logout/>
+                                    </IconButton>
+                                </Grid>
+                            </>}
                     </Box>
                 </Toolbar>
             </Container>
@@ -168,4 +196,16 @@ function Header() {
     );
 }
 
-export default Header;
+const mapDispatchToProps = dispatch => {
+    return {
+        getCart: (data, onSuccess, onFail) => dispatch(fetchCart({data, onSuccess, onFail})),
+    };
+};
+
+const mapStateToProps = state => {
+    return {
+        organization: state.organization,
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

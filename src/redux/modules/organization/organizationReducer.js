@@ -171,12 +171,16 @@ export const organizationReducer = handleActions(
         [requestSuccess(OrganizationConstants.FETCH_CART)]: (
             state,
             action
-        ) => ({
-            ...state,
-            fetchCartLoading: false,
-            fetchCartFailure: false,
-            fetchCartLoaded: true
-        }),
+        ) => {
+            const total = action?.payload?.items.reduce((sum, product) => sum + product?.quantity, 0) || 0;
+            return ({
+                ...state,
+                cartItemQTY: total,
+                fetchCartLoading: false,
+                fetchCartFailure: false,
+                fetchCartLoaded: true
+            })
+        },
     },
     initialOrganizationState()
 );

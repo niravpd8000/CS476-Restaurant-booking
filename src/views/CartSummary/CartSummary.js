@@ -15,7 +15,7 @@ function CartSummary({getCart, updateCart, organization}) {
 
     useEffect(() => {
         getCartData();
-    }, [])
+    }, []);
     const getCartData = () => {
         const onSuccess = response => {
             setCartData(response?.items);
