@@ -1,11 +1,11 @@
 .previous-order {
-    max-width: 100%; /* Adjust as necessary */
+    max-width: 100%; 
     margin: auto;
 }
 
 .previous-order-image {
-    width: 120px; /* Adjust as necessary */
-    height: 80px; /* Adjust as necessary */
+    width: 120px; 
+    height: 80px; 
     object-fit: cover;
     margin-right: 16px;
 }
@@ -14,14 +14,9 @@
     white-space: nowrap;
 }
 
-/* Add any additional styles needed for your rating component */
+
 .previous-order-image {
-    /* Existing styles */
-    margin-right: 8px; /* Adjust as needed */
-  }
-  
-  /* You can add additional styles for the rating if needed */
-  .rating {
-    /* Your custom styles for the rating component */
+    
+    margin-right: 8px; 
   }
   
