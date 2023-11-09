@@ -4,6 +4,7 @@ import LightBlueButton from "../../reusable/LightBlueButton";
 import ProgressBar from "../../reusable/ProgressBar";
 import Forms from "./Components/Froms";
 import {useNavigate} from "react-router-dom";
+import Grid from "@mui/material/Grid";
 
 
 const tab = [
@@ -51,23 +52,22 @@ const TableReservationForm = (props) => {
     };
 
 
-
     return (
-        <div>
-                <React.Fragment>
-                    <LightBlueButton className="w-110" onClick={onclickBack}>Cancel</LightBlueButton>
-                    <GreenButton className="ml-3 w-170"
-                                 onClick={onclickNext}>{currentTab !== 2 ? "Next" : "Create"}</GreenButton>
-                </React.Fragment>
-            <div>
+        <Grid container>
+            <Grid item xs={12} align={"right"}>
+                <LightBlueButton className="w-110" onClick={onclickBack}>Cancel</LightBlueButton>
+                <GreenButton className="ml-3 w-170"
+                             onClick={onclickNext}>{currentTab !== 2 ? "Next" : "Create"}</GreenButton>
+            </Grid>
+            <Grid item xs={12}>
                 <ProgressBar labelList={tab} index={currentTab}/>
                 <Forms errorMsg={errorMsg} loading={false} error={error}
                        organizationData={state}
                        setFormBuilder={setFormBuilder}
                        formBuilder={formBuilder}
                        onChangeState={setState} tab={tab} currentTab={currentTab}/>
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 };
 export default TableReservationForm;

@@ -2,6 +2,7 @@ import classes from './MealsSummary.module.css';
 import GreenButton from "../../reusable/GreenButton";
 import {useNavigate} from "react-router-dom";
 import {useParams} from 'react-router-dom';
+import {getRestIdFromToken} from "../../utils/common";
 
 const MealsSummary = ({restData}) => {
     const navigate = useNavigate();
@@ -14,7 +15,8 @@ const MealsSummary = ({restData}) => {
                     {restData.description}
                 </p>
             </section>
-            <GreenButton onClick={() => navigate(`/table/${id}`)}>Reserve A Table</GreenButton>
+            {!getRestIdFromToken() ?
+                <GreenButton onClick={() => navigate(`/table/${id}`)}>Reserve A Table</GreenButton> : <></>}
         </div>
     );
 };
