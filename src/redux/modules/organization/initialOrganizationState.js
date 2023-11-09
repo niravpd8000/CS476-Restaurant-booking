@@ -17,7 +17,11 @@ export const initialOrganizationState = () => ({
     fetchManuByIdLoading: false,
     fetchManuByIdFailure: false,
     fetchManuByIdLoaded: false,
+    cartItemQTY: 0,
     cartUpdateLoading: false,
     cartUpdateFailure: false,
     cartUpdateLoaded: false,
+    fetchCartLoading: false,
+    fetchCartFailure: false,
+    fetchCartLoaded: false,
 });

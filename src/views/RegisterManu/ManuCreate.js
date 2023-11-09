@@ -68,7 +68,7 @@ const ManuCreate = (props) => {
     };
     const createManuControl = () => {
         const onSuccess = data => {
-            successMessage(isEditMenuPath?"Menu Updated Successfully":"Menu created successfully.");
+            successMessage(isEditMenuPath ? "Menu Updated Successfully" : "Menu created successfully.");
         };
         const onFail = err => {
             setErrorMsg(err?.data?.errors);
@@ -92,7 +92,7 @@ const ManuCreate = (props) => {
     };
 
     return (
-        <Row>
+        <Row style={{padding: "0 30px"}}>
             <Col xs={24}>
                 {isEditMenuPath ? <div align={"right"}>
                         <LightBlueButton className="w-110 border-radius-25" onClick={onclickBack}>Cancel</LightBlueButton>
@@ -105,21 +105,24 @@ const ManuCreate = (props) => {
                         <GreenButton className="ml-3 w-170"
                                      onClick={onclickNext}>{currentTab !== 4 ? "Next" : "Create"}</GreenButton>
                     </div>}
-                <div>
-                    {isEditMenuPath ? <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
-                            <Tabs value={currentTab} onChange={handleTab} centered>
-                                <Tab label="Overview"/>
-                                <Tab label="Edit Template"/>
-                            </Tabs>
-                        </Box> :
-                        <ProgressBar labelList={tab} index={currentTab}/>}
-                    <Forms errorMsg={errorMsg} loading={false} error={error}
-                           isEditMenuPath={isEditMenuPath}
-                           manuData={state}
-                           setFormBuilder={setFormBuilder}
-                           formBuilder={formBuilder}
-                           onChangeState={setState} tab={tab} currentTab={currentTab} setCurrentTab={setCurrentTab}/>
-                </div>
+            </Col>
+            <Col xs={24} style={{justifyContent: "center", display: "flex"}}>
+                {isEditMenuPath ? <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
+                        <Tabs value={currentTab} onChange={handleTab} centered>
+                            <Tab label="Overview"/>
+                            <Tab label="Edit Template"/>
+                        </Tabs>
+                    </Box> :
+                    <ProgressBar labelList={tab} index={currentTab}/>}
+            </Col>
+            <Col xs={24} style={{justifyContent: "center", display: "flex"}}>
+
+                <Forms errorMsg={errorMsg} loading={false} error={error}
+                       isEditMenuPath={isEditMenuPath}
+                       manuData={state}
+                       setFormBuilder={setFormBuilder}
+                       formBuilder={formBuilder}
+                       onChangeState={setState} tab={tab} currentTab={currentTab} setCurrentTab={setCurrentTab}/>
             </Col>
         </Row>
     )

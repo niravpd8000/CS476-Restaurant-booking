@@ -5,11 +5,9 @@ import {connectRouter} from "connected-react-router";
 import organizationSaga from "./organization/organizationSaga";
 import authorisationSaga from "./authorisation/authorisationSaga";
 
-
 // REDUCERS
 import {organizationReducer} from "./organization/organizationReducer";
 import {authorisationReducer} from "./authorisation/authorisationReducer";
-
 
 export const reducers = history =>
     combineReducers({

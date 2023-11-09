@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import "../AvailableMeals.scss";
 import AddToCartModal from "./AddToCartModal";
+import {getRestIdFromToken} from "../../../utils/common";
 
 const MealItem = ({manuItem}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -20,12 +21,12 @@ const MealItem = ({manuItem}) => {
                 <div className={"child right-div"}><img alt="menu image" width={"110px"} height={"110px"}
                                                         src={manuItem.image_url || "https://freeiconshop.com/wp-content/uploads/edd/food-outline.png"}/>
                 </div>
-                <div className={"add-div"}>
+                {!getRestIdFromToken() ? <div className={"add-div"}>
                     <button disabled={!manuItem.available} className={"add-button"}
                             onClick={() => manuItem.available ? setModalVisible(true) : null}
                     >{manuItem.available ? "add" : "Out of Stock"}
                     </button>
-                </div>
+                </div> : <></>}
             </div>
         </>
     );
