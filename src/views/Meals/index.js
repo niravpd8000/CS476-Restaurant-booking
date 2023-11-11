@@ -5,14 +5,14 @@ import MealsSummary from "./MealsSummary";
 import {errorMessage} from "../../utils/common";
 import {fetchOrgById, fetchOrgManuById} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 const MainMeals = (props) => {
     const {fetchOrgById, fetchOrgManuById} = props;
     const [restData, setRestData] = useState({});
     const [manuData, setManuData] = useState([]);
     const {id} = useParams();
-
+    const navigate = useNavigate();
     useEffect(() => {
         getOrgById();
         getOrgManuById();
@@ -22,7 +22,9 @@ const MainMeals = (props) => {
             setRestData(response);
         };
         const onFail = err => {
-            errorMessage(err.data?.title || err.data?.message);
+            navigate('/dashboard');
+            // errorMessage(err.data?.title || err.data?.message);
+            errorMessage("There is an issue while processing your request");
         };
         fetchOrgById(
             {id: id},
@@ -35,7 +37,8 @@ const MainMeals = (props) => {
             setManuData(response);
         };
         const onFail = err => {
-            errorMessage(err.data?.title || err.data?.message);
+            navigate('/dashboard');
+            errorMessage("There is an issue while processing your request");
         };
         fetchOrgManuById(
             {id: id},
@@ -48,7 +51,7 @@ const MainMeals = (props) => {
             <MealsSummary restData={restData}/>
             <Grid container spacing={2}>
                 {manuData.map((item, key) =>
-                    <Grid key={key} item xs={12} md={4} lg={3} sm={6} >
+                    <Grid key={key} item xs={12} md={4} lg={3} sm={6}>
                         <MealItem manuItem={item}/>
                     </Grid>
                 )}

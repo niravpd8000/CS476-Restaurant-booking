@@ -11,7 +11,6 @@ const MainMeals = (props) => {
     const [restData, setRestData] = useState({});
     const [manuData, setManuData] = useState([]);
     const id = getRestIdFromToken();
-    console.log(id);
     useEffect(() => {
         getOrgById();
         getOrgManuById();

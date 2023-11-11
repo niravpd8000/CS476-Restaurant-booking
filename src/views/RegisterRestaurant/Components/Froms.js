@@ -26,7 +26,6 @@ const Forms = (props) => {
     };
 
 
-    console.log(organizationData)
     return (
         <div className="organization">
             <InputBox

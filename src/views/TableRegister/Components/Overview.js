@@ -36,7 +36,7 @@ const Overview = (props) => {
                     <TextField required
                                max={8}
                                errorMsg={errorMsg?.estimate_time || "Number of People is required"}
-                               label="Number of People (max 8)"
+                               label="Number of People (max 4)"
                                type={"number"}
                                value={organizationData.estimate_time} name="estimate_time"
                                error={errorMsg?.estimate_time || (error && !"")}
