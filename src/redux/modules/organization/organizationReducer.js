@@ -172,7 +172,7 @@ export const organizationReducer = handleActions(
             state,
             action
         ) => {
-            const total = action?.payload?.items.reduce((sum, product) => sum + product?.quantity, 0) || 0;
+            const total = action?.payload?.items ? action?.payload?.items.reduce((sum, product) => sum + product?.quantity, 0) : 0;
             return ({
                 ...state,
                 cartItemQTY: total,

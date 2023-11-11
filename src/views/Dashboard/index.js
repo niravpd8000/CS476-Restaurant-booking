@@ -10,8 +10,9 @@ import Loading from "../../reusable/Loading";
 const Dashboard = ({getOrgList, organization}) => {
     const navigate = useNavigate();
     const [restList, setRestList] = useState([]);
-
     useEffect(() => {
+        if (getRestIdFromToken())
+            navigate("/restaurant-home")
         getAllOrg({})
     }, []);
     const getAllOrg = data => {
@@ -33,7 +34,7 @@ const Dashboard = ({getOrgList, organization}) => {
                 <div className="card-container mb-3">
                     <Grid container spacing={2}>
                         {
-                            restList.map((item, key) =>
+                            restList?.map((item, key) =>
                                 <Grid item key={key} lg={3} md={4} sm={6} xs={12}>
                                     <RestaurantCard data={item} onClick={() => navigate(`/meals/${item._id}`)}/>
                                 </Grid>
