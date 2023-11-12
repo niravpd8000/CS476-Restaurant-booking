@@ -67,7 +67,6 @@ const Create = (props) => {
         }
         else if (currentTab === 4) {
             createOrganization();
-            navigate("/restaurant-home")
         }
         else
             setError(currentTab);
@@ -84,6 +83,7 @@ const Create = (props) => {
     const createOrganization = () => {
         const onSuccess = data => {
             successMessage("Organization created successfully.");
+            navigate("/sign-in");
         };
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);

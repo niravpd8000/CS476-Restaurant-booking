@@ -1,6 +1,7 @@
 import React from 'react'
 import "./RestaurantCard.scss";
 import {Card} from 'antd';
+import {Tooltip, Typography} from "@mui/material";
 
 const {Meta} = Card;
 const RestaurantCard = props => {
@@ -20,8 +21,8 @@ const RestaurantCard = props => {
             }
         >
             <Meta
-                title={data.name}
-                description={data.description}
+                title={data?.name}
+                description={<Tooltip title={data?.description}><Typography variant={"subtitle1"} noWrap={true}>{data?.description}</Typography></Tooltip>}
             />
         </Card>
     )

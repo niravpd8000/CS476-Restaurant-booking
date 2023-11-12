@@ -13,7 +13,6 @@ const WorkSchedule = (props) => {
             let obj = array.find(item => item.day === e.name);
             obj.status = e.value;
             setWeekSchedule([...array])
-            console.log(array)
         };
 
         const onAddHours = (key) => {
@@ -37,13 +36,13 @@ const WorkSchedule = (props) => {
                             </div>
                             <div className={"justify-content-between d-flex mt-10"}>
                                 <div className="col-2 ">
-                                    <Switch onChange={() => onClickSwitch({name: item.day, value: !item.status})}
+                                    <Switch onClick={() => onClickSwitch({name: item.day, value: !item.status})}
                                             checked={item.status}
                                             className="mt-2 ml-2 d-flex"
                                     />
                                     {item.status ? "Active" : "Inactive"}
                                 </div>
-                                <div className="col-6">
+                                <div className="col-10">
                                     {(item.status && item.times.length > 0) &&
                                         item.times.map((time, index) => {
                                             return (
@@ -57,16 +56,16 @@ const WorkSchedule = (props) => {
                                                     }}
                                                                 defaultValue={moment(time.endTime, 'hh:mm A')}
                                                                 format='hh:mm A'/>
-                                                    {index ? <img alt="Cross" onClick={() => onDeleteHours(key, index)}
-                                                                  className="ml-1 cursor-pointer" src={Cross}/> : ''}
+                                                    {/*{index ? <img alt="Cross" onClick={() => onDeleteHours(key, index)}*/}
+                                                    {/*              className="ml-1 cursor-pointer" src={Cross}/> : ''}*/}
                                                 </div>
                                             );
                                         })}
                                 </div>
-                                < div className=" col-2 mt-2 cursor-pointer" style={{padding: "6px"}}>
-                                    {item.status &&
-                                        <span className="text-gray" onClick={() => onAddHours(key)}>Add hours</span>}
-                                </div>
+                                {/*< div className=" col-2 mt-2 cursor-pointer" style={{padding: "6px"}}>*/}
+                                {/*    {item.status &&*/}
+                                {/*        <span className="text-gray" onClick={() => onAddHours(key)}>Add hours</span>}*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     )

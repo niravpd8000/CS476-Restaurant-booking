@@ -2,7 +2,7 @@ import React from 'react'
 import "./TextArea.scss"
 
 const TextArea = props => {
-    const {label, name, value, onChange, onBlur, placeholder, error, required, errorMsg, rows} = props;
+    const {label, name, value, style, onChange, onBlur, placeholder, error, required, errorMsg, rows} = props;
     const [blur, setBlur] = React.useState(false);
 
     let inputProps = {
@@ -22,7 +22,7 @@ const TextArea = props => {
             onBlur()
     }
     return (
-        <div className="textAreaForm mt-20">
+        <div className="textAreaForm mt-20" style={style}>
             <div className="form-group">
                 <label className="labelClass margin-left-5">{label} {required &&
                     <span className="color-red">*</span>}

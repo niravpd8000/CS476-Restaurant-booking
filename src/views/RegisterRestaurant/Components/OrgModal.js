@@ -12,7 +12,6 @@ const OrgModal = (props) => {
         setCategory("");
         setError(false);
     }, [visible]);
-    console.log(error)
     return (
         <CustomModal onClickSubmit={() => {
             if (category)

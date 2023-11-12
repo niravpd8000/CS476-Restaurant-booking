@@ -1,4 +1,15 @@
 .custom-modal {
+.MuiBox-root{
+  border-radius: 15px;
+}
+.md-header {
+    font-weight: bold;
+    font-size: 15px;
+    color: #000000;
+    border-bottom: 1px solid #bdbdbd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
   .modal-dialog {
     .modal-content {
       border: 1px solid #e0e0e0;
