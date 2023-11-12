@@ -26,18 +26,21 @@ const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Man
         badge: "orderBadge",
         goto: "/OrderManagement"
     }];
-const userPages = [{label: 'Product'}, {label: 'Pricing'}, {
+const userPages = [{
     label: "My Orders",
     goto: "/previousOrder"
 }, {label: 'My Reservation'}];
 
-function Header({getCart, organization}) {
+function Header({getCart, organization, order}) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!getRestIdFromToken() && getFromStorage("accessToken"))
             getCart();
-    }, [organization.loginLoaded, organization.createOrderLoaded]);
+    }, [organization.loginLoaded, order.createOrderLoading, order.fetchOrderLoading]);
+
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -71,42 +74,42 @@ function Header({getCart, organization}) {
                         DineEase
                     </Typography>
 
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: {xs: 'block', md: 'none'},
-                            }}
-                        >
-                            {userPages.map((page, key) => (
-                                <MenuItem key={key} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page.label}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
+                    {/*<Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>*/}
+                    {/*    <IconButton*/}
+                    {/*        size="large"*/}
+                    {/*        aria-label="account of current user"*/}
+                    {/*        aria-controls="menu-appbar"*/}
+                    {/*        aria-haspopup="true"*/}
+                    {/*        onClick={handleOpenNavMenu}*/}
+                    {/*        color="inherit"*/}
+                    {/*    >*/}
+                    {/*        <MenuIcon/>*/}
+                    {/*    </IconButton>*/}
+                    {/*    <Menu*/}
+                    {/*        id="menu-appbar"*/}
+                    {/*        anchorEl={anchorElNav}*/}
+                    {/*        anchorOrigin={{*/}
+                    {/*            vertical: 'bottom',*/}
+                    {/*            horizontal: 'left',*/}
+                    {/*        }}*/}
+                    {/*        keepMounted*/}
+                    {/*        transformOrigin={{*/}
+                    {/*            vertical: 'top',*/}
+                    {/*            horizontal: 'left',*/}
+                    {/*        }}*/}
+                    {/*        open={Boolean(anchorElNav)}*/}
+                    {/*        onClose={handleCloseNavMenu}*/}
+                    {/*        sx={{*/}
+                    {/*            display: {xs: 'block', md: 'none'},*/}
+                    {/*        }}*/}
+                    {/*    >*/}
+                    {/*        {userPages.map((page, key) => (*/}
+                    {/*            <MenuItem key={key} onClick={handleCloseNavMenu}>*/}
+                    {/*                <Typography textAlign="center">{page.label}</Typography>*/}
+                    {/*            </MenuItem>*/}
+                    {/*        ))}*/}
+                    {/*    </Menu>*/}
+                    {/*</Box>*/}
                     <DinnerDiningIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                     <Typography
                         variant="h5"
@@ -154,7 +157,8 @@ function Header({getCart, organization}) {
                         {!getFromStorage("accessToken") ? <Grid>
                                 <LightBlueButton style={{borderRadius: "20px"}} onClick={() => navigate("/sign-in")}>Sign
                                     In</LightBlueButton>
-                                <GreenButton onClick={() => navigate("/sign-up")}>Sign Up</GreenButton>
+                                <GreenButton className={"border-radius-25 ml-1"} onClick={() => navigate("/sign-up")}>Sign
+                                    Up</GreenButton>
                             </Grid> :
                             <>
                                 <Grid>
@@ -207,6 +211,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         organization: state.organization,
+        order: state.order,
     };
 };
 
