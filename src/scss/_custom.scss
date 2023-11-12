@@ -5,6 +5,10 @@
   }
 }
 
+.MuiButtonBase-root:focus {
+  outline: none !important;
+}
+
 .ant-checkbox-wrapper {
   .ant-checkbox-inner {
     border: 1px solid #bdbdbd;
