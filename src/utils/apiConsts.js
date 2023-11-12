@@ -13,5 +13,7 @@ export const updateOrderStatus = "order/updateStatus";
 export const getOrderById = 'order/getOrder';
 export const getOrderByRestId = 'order/restaurant';
 export const getOrderByUserId = 'order/user';
+export const getOrderItemDashboard = 'order/dashboard/itemCounts';
+export const giveRating = 'order/order-rating';
 export const signIn = 'auth/signin';
 export const signUp = 'auth/signup';

@@ -63,8 +63,8 @@ const FormBuilder = (props) => {
         }
     }, [formBuilder]);
     useEffect(() => {
-        if (formData.length)
-            formBuilder.setData(formData)
+        if (formData.length && formBuilder && formBuilder?.setData)
+            formBuilder?.setData(formData)
     }, [formData])
     return (
         <div className="work-location template">
