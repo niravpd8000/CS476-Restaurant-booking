@@ -8,6 +8,8 @@ import {errorMessage, validateEmail} from "../../utils/common";
 import {signup} from "../../redux/modules/authorisation/authorisationActions";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {Grid, Typography} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 const SignUp = ({signup}) => {
     const navigate = useNavigate();
@@ -93,6 +95,7 @@ const SignUp = ({signup}) => {
                             placeholder="Enter Confirm password"/>
                         <div align="center">
                             <GreenButton className='btn-signIn' onClick={signupControl}>Sign Up</GreenButton>
+                            <Typography style={{color:"blue", marginTop:5}} onClick={() => navigate('/restaurant-home/sign-up')}>Register a Restaurant</Typography>
                         </div>
                     </div>
 
