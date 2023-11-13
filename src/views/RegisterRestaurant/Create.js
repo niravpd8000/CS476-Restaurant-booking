@@ -65,7 +65,8 @@ const Create = (props) => {
         }
     }, [restData]);
     const onclickNext = () => {
-        if ((currentTab === 0 && (state.username && isPasswordComplex(state.password) && (state.confirmPassword && state.confirmPassword === state.password) && state.name && state.description && validateMobileNumber(state.phone) && validateEmail(state.email))) || (currentTab === 1 && !!(state.address.address) && validateCanadianPostalCode(state.address.zipcode)))
+        const verify = isEditRestPath?true:state.username && isPasswordComplex(state.password) && (state.confirmPassword && state.confirmPassword === state.password);
+        if ((currentTab === 0 && (verify && state.name && state.description && validateMobileNumber(state.phone) && validateEmail(state.email))) || (currentTab === 1 && !!(state.address.address) && validateCanadianPostalCode(state.address.zipcode)))
             setCurrentTab(currentTab + 1);
         else if (currentTab === 2)
             setCurrentTab(currentTab + 1);
@@ -137,16 +138,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Create);
 
 
 const data = [
-    {day: "Monday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
-    {day: "Tuesday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
-    {day: "Wednesday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
-    {day: "Thursday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
-    {day: "Friday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
-    {day: "Saturday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
-    {day: "Sunday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "monday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "tuesday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "wednesday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "thursday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "friday", status: true, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "saturday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
+    {day: "sunday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
 ];
-
-
 
 
 //

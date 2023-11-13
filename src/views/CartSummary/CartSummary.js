@@ -39,13 +39,14 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
 
     useEffect(() => {
         const duration = moment.duration(cartData?.reduce((sum, product) => sum + product?.item?.estimate_time * product?.quantity, 0), 'minutes');
+        console.log(restData?.restaurantSchedules)
         const todayTime = restData?.restaurantSchedules?.find(item => item.day === moment().format('dddd').toLowerCase())?.times[0] || {};
         todayTime.estimate_time = duration;
         setTimeRange(todayTime)
         setDuration(duration);
     }, [cartData]);
 
-
+    console.log(timeRange)
     const getCartData = () => {
         const onSuccess = response => {
             setCartData(response?.items);

@@ -18,8 +18,8 @@ const MealsSummary = ({restData}) => {
                 </p>
             </section>
             <div className={"d-flex justify-content-between"}>
-                {!getRestIdFromToken() && getFromStorage("accessToken") ?
-                    <GreenButton onClick={() => navigate(`/table/${id}`)}>Reserve A Table</GreenButton> : <></>}
+                {/*{!getRestIdFromToken() && getFromStorage("accessToken") ?*/}
+                {/*    <GreenButton onClick={() => navigate(`/table/${id}`)}>Reserve A Table</GreenButton> : <></>}*/}
                 <div>Address: {`${restData?.address?.address}, ${restData?.address?.cityId}, ${restData?.address?.stateId}`}</div>
                 {!!restData?.averageOrderRating &&
                     <Rating defaultValue={restData?.averageOrderRating} value={restData?.averageOrderRating} readOnly/>}

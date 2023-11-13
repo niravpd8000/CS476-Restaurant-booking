@@ -33,7 +33,7 @@ function DataDashboard({fetchOrderItemsDashboard}) {
     };
     return (
         <Box p={4}>
-            {(dashboardData?.reservationOrders?.length || dashboardData?.pickupOrders?.length || dashboardData?.itemCounts?.length) ?
+            {(dashboardData?.reservationOrders?.length || dashboardData?.pickupOrders?.length || dashboardData?.itemCounts) ?
                 <Grid container spacing={4}>
 
                     <Grid item xs={12} md={6}>
