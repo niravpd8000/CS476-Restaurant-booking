@@ -14,6 +14,7 @@ const Forms = (props) => {
         currentTab,
         onChangeState,
         organizationData,
+        isEditRestPath
     } = props;
 
     const handleChange = (e) => {
@@ -33,7 +34,7 @@ const Forms = (props) => {
                 title={tab[currentTab].label}
             >
                 {currentTab === 0 &&
-                    <Overview error={error === currentTab}
+                    <Overview isEditRestPath={isEditRestPath} error={error === currentTab}
                               organizationData={organizationData}
                               onChange={handleChange}/>}
                 {currentTab === 1 &&

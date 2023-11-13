@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import GreenButton from "../../reusable/GreenButton";
 import LightBlueButton from "../../reusable/LightBlueButton";
 import ProgressBar from "../../reusable/ProgressBar";
 import Forms from "./Components/Froms";
 import {
-    errorMessage,
+    errorMessage, getRestIdFromToken, isPasswordComplex,
     successMessage,
     validateCanadianPostalCode,
     validateEmail,
@@ -26,7 +26,7 @@ const tab = [
 
 const Create = (props) => {
     const navigate = useNavigate();
-    const {createOrg} = props;
+    const {createOrg, restData, isEditRestPath} = props;
     const [currentTab, setCurrentTab] = useState(0);
     const [error, setError] = useState(-1);
 
@@ -34,11 +34,11 @@ const Create = (props) => {
         username: "",
         password: "",
         confirmPassword: "",
-        fullName: "Owner",
-        name: 'Test',
-        description: 'test ',
-        phone: '3063513068',
-        email: 'nislds@gmail.com',
+        fullName: "",
+        name: '',
+        description: ' ',
+        phone: '',
+        email: '',
         number_of_table: 2,
         provide_reservation: true,
         image_url: "https://marketplace.canva.com/EAFpeiTrl4c/1/0/1600w/canva-abstract-chef-cooking-restaurant-free-logo-9Gfim1S8fHg.jpg",
@@ -51,27 +51,31 @@ const Create = (props) => {
 
             stateId: "SK",
             cityId: "Regina",
-            address: '132 ABC st',
+            address: '',
             zipcode: "",
         },
         schedules: data
     });
 
+
+    useEffect(() => {
+        if (isEditRestPath) {
+            setState(restData)
+            console.log(isEditRestPath)
+        }
+    }, [restData]);
     const onclickNext = () => {
-        if ((currentTab === 0 && (state.name && state.description && validateMobileNumber(state.phone) && validateEmail(state.email))) || (currentTab === 1 && !!(state.address.address) && validateCanadianPostalCode(state.address.zipcode)))
+        if ((currentTab === 0 && (state.username && isPasswordComplex(state.password) && (state.confirmPassword && state.confirmPassword === state.password) && state.name && state.description && validateMobileNumber(state.phone) && validateEmail(state.email))) || (currentTab === 1 && !!(state.address.address) && validateCanadianPostalCode(state.address.zipcode)))
             setCurrentTab(currentTab + 1);
         else if (currentTab === 2)
             setCurrentTab(currentTab + 1);
         else if (currentTab === 3) {
             setCurrentTab(currentTab + 1);
-        }
-        else if (currentTab === 4) {
+        } else if (currentTab === 4) {
             createOrganization();
-        }
-        else
+        } else
             setError(currentTab);
     };
-
     const onclickBack = () => {
         if (currentTab !== 0)
             setCurrentTab(currentTab - 1);
@@ -82,8 +86,14 @@ const Create = (props) => {
 
     const createOrganization = () => {
         const onSuccess = data => {
-            successMessage("Organization created successfully.");
-            navigate("/sign-in");
+
+            if (!getRestIdFromToken()) {
+                navigate("/sign-in");
+                successMessage(`Restaurant created successfully.`);
+            } else {
+                successMessage(`Restaurant updated successfully.`);
+                setCurrentTab(0);
+            }
         };
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
@@ -102,7 +112,7 @@ const Create = (props) => {
                 </div>
                 <div>
                     <ProgressBar labelList={tab} index={currentTab}/>
-                    <Forms loading={false} error={error}
+                    <Forms isEditRestPath={isEditRestPath} loading={false} error={error}
                            organizationData={state}
                            onChangeState={setState} tab={tab} currentTab={currentTab}/>
                 </div>
@@ -135,3 +145,34 @@ const data = [
     {day: "Saturday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
     {day: "Sunday", status: false, times: [{startTime: "08:00 AM", endTime: "06:00 PM"}]},
 ];
+
+
+
+
+//
+// {
+//     username: "",
+//         password: "",
+//     confirmPassword: "",
+//     fullName: "Owner",
+//     name: 'Test',
+//     description: 'test ',
+//     phone: '3063513068',
+//     email: 'nislds@gmail.com',
+//     number_of_table: 2,
+//     provide_reservation: true,
+//     image_url: "https://marketplace.canva.com/EAFpeiTrl4c/1/0/1600w/canva-abstract-chef-cooking-restaurant-free-logo-9Gfim1S8fHg.jpg",
+//     categories: ["Italian", "Mexican"],
+//     table_capacity: [
+//     {capacity: 4},
+//     {capacity: 4}
+// ],
+//     address: {
+//
+//     stateId: "SK",
+//         cityId: "Regina",
+//         address: '132 ABC st',
+//         zipcode: "",
+// },
+//     schedules: data
+// }

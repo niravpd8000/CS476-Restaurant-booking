@@ -97,11 +97,43 @@ export const validateMobileNumber = (mobileNumber) => {
     return re.test(String(mobileNumber).replace(/[-\s()]/g, ''));
 };
 
+export const isPasswordComplex = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return (
+        password.length >= minLength &&
+        hasUpperCase &&
+        hasLowerCase &&
+        hasDigit &&
+        hasSpecialChar
+    );
+}
 export const validateCanadianPostalCode = (postalCode) => {
     const re = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
 
     return re.test(postalCode);
 };
+
+
+function isValidString(str) {
+    if (str.trim() === '') {
+        return false;
+    }
+
+    if (/^\d/.test(str)) {
+        return false;
+    }
+
+    if (!/^[a-zA-Z0-9]+$/.test(str)) {
+        return false;
+    }
+
+    return true;
+}
 
 export function downloadFile(api, data, name) {
     axios.post(config.BASE_URL + api, data,
@@ -123,16 +155,17 @@ export function downloadFile(api, data, name) {
         .catch((error) => console.log(error));
 }
 
-export const confirmDelete = ({title, content, onConfirm, onCancel}) => {
+export const confirmDelete = (title, onConfirm, onCancel) => {
     confirm({
         title: title || 'Do you Want to delete these items?',
         icon: <ExclamationCircleOutlined/>,
-        content: content || 'Some descriptions',
+        // content: content || 'Some descriptions',
         onOk() {
             onConfirm();
         },
         onCancel() {
-            onCancel();
+            if (onCancel)
+                onCancel();
             console.log('Cancel');
         },
     });
@@ -141,16 +174,6 @@ export const confirmDelete = ({title, content, onConfirm, onCancel}) => {
 export const addSecondTODate = (second) => {
     return moment().add(second, "second")._d
 };
-
-export const validateLink = (link) => {
-    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i');
-    return !!pattern.test(link);
-}
 
 export const organisationId = () => {
     return getFromStorage('organisation_id')
@@ -186,7 +209,6 @@ export const downloadFile2 = (dataUrl, filename) => {
     a.click();
 };
 
-export const firstLetterLowerCase = (text) => text[0].toLowerCase() + text.substring(1);
 export const cartItemValueExtract = (data) => {
     if (typeof data !== 'object' || data === null) {
         console.error('Data is not an object.');
