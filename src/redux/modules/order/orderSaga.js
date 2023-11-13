@@ -17,7 +17,7 @@ function* createOrder(action) {
             data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
@@ -32,7 +32,7 @@ function* updateOrder(action) {
             data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
@@ -47,7 +47,7 @@ function* fetchOrder(action) {
             // data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
@@ -62,7 +62,7 @@ function* fetchOrderByRest(action) {
             // data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
@@ -77,7 +77,7 @@ function* fetchOrderByUser(action) {
             // data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
@@ -91,7 +91,7 @@ function* fetchOrderItemDashBoard(action) {
             url: API.getOrderItemDashboard+`?timeInterval=${action.payload.data?.timeInterval}`,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
@@ -106,7 +106,7 @@ function* rateMyOrder(action) {
             data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );

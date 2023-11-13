@@ -12,7 +12,7 @@ function* createOrganization(action) {
         request({
             type: OrganizationConstants.CREATE_ORGANIZATION,
             method: "POST",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: getRestIdFromToken() ? API.OrganisationUpdate : API.OrganisationInsert,
             data: action.payload.data,
             success: action.payload.onSuccess,
@@ -27,7 +27,7 @@ function* getOrganizationList(action) {
         request({
             type: OrganizationConstants.FETCH_ORGANIZATIONS,
             method: "get",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: API.getAllRest,
             // data: action.payload.data,
             success: action.payload.onSuccess,
@@ -42,7 +42,7 @@ function* getOrganizationById(action) {
         request({
             type: OrganizationConstants.FETCH_ORGANIZATION_BY_ID,
             method: "get",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: API.getRestById + `/${action.payload.data?.id}`,
             // data: action.payload.data,
             success: action.payload.onSuccess,
@@ -57,7 +57,7 @@ function* getOrganizationManuById(action) {
         request({
             type: OrganizationConstants.FETCH_ORGANIZATION_BY_ID,
             method: "get",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: API.getRestManuById + `/${action.payload.data?.id}`,
             // data: action.payload.data,
             success: action.payload.onSuccess,
@@ -72,7 +72,7 @@ function* createManu(action) {
         request({
             type: OrganizationConstants.CREATE_MANU,
             method: "POST",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: action.payload.data?.itemId ? API.manuUpdate : API.manuCreate,
             data: action.payload.data,
             success: action.payload.onSuccess,
@@ -87,7 +87,7 @@ function* getManuById(action) {
         request({
             type: OrganizationConstants.FETCH_MANU_BY_ID,
             method: "get",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: API.manuById + `/${action.payload.data?.id}`,
             success: action.payload.onSuccess,
             fail: action.payload.onFail
@@ -101,7 +101,7 @@ function* cartCreateUpdate(action) {
         request({
             type: OrganizationConstants.CART,
             method: "post",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: API.cartUpdate,
             data: action.payload.data,
             success: action.payload.onSuccess,
@@ -116,7 +116,7 @@ function* fetchCart(action) {
         request({
             type: OrganizationConstants.FETCH_CART,
             method: "get",
-            baseURL: config.URL,
+            baseURL: config.BASE_URL,
             url: API.getCart,
             success: action.payload.onSuccess,
             fail: action.payload.onFail

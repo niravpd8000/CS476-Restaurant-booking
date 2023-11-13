@@ -16,7 +16,7 @@ function* login(action) {
       data: action.payload.data,
       success: action.payload.onSuccess,
       fail: action.payload.onFail,
-      baseURL: config.URL
+      baseURL: config.BASE_URL
     }),
     action
   );
@@ -30,7 +30,7 @@ function* signup(action) {
             data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail,
-            baseURL: config.URL
+            baseURL: config.BASE_URL
         }),
         action
     );
