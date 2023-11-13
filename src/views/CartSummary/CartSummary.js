@@ -114,7 +114,7 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
     return (
 
         <Box p={4}>
-            {!organization.cartItemQTY ?
+            {!organization.cartItemQTY|| !cartData.length?
                 <Grid container spacing={4}>
                     <Grid item xs={12} align={"center"}>
                         <RemoveShoppingCartIcon style={{color: "#c5c5c5", fontSize: "300px"}}/>

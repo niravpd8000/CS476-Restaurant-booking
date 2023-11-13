@@ -4,7 +4,7 @@ import {Tab} from '@mui/base/Tab';
 import {TabsList} from '@mui/base/TabsList';
 import {TabPanel} from '@mui/base/TabPanel';
 import {Tabs} from '@mui/base/Tabs';
-import {errorMessage} from "../../utils/common";
+import {confirmDelete, errorMessage} from "../../utils/common";
 import {fetchOrderByRest, updateOrder} from "../../redux/modules/order/orderActions";
 import {cartUpdate} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
@@ -21,7 +21,7 @@ function OrderManagement({getOrderByRest, updateOrderStatus}) {
     }, []);
     const getOrderData = () => {
         const onSuccess = response => {
-            setOrderList(response.filter(item=>item?.isPickUp));
+            setOrderList(response.filter(item => item?.isPickUp));
         };
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
@@ -87,7 +87,10 @@ function OrderManagement({getOrderByRest, updateOrderStatus}) {
                                         {order?.status === "Pending" ?
                                             <Button style={{width: "100px"}}
                                                     variant="contained"
-                                                    onClick={() => declineOrder(order?._id)}
+                                                    onClick={
+                                                        () => confirmDelete("Are you sure you want to decline this order?",
+                                                            () => declineOrder(order?._id)
+                                                        )}
                                                     color="primary">
                                                 Decline
                                             </Button> :

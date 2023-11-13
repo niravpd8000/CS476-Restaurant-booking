@@ -1,78 +1,70 @@
-import React, {useEffect, useState} from 'react'
-import "./UploadImage.scss";
-import {Upload} from 'antd';
-import cameraIcon from '../../assets/icons/Camera.svg';
-import {errorMessage} from "../../utils/common";
+import React, {useState} from 'react';
+import axios from 'axios';
+import GreenButton from "../GreenButton";
 
-const UploadImage = props => {
-    const {onChange, fileUpload, imageSet, name, assetImage, assetUpload} = props;
-    const [imageList, setImageList] = useState([]);
-    let paths = [];
-    useEffect(() => {
-        setImageList(imageSet && imageSet.filter(i => i.url));
-        paths = imageSet
-    }, []);
-    const handleChange = async ({fileList, file}) => {
-        if (file.status !== "removed" && file.status === "uploading") {
-            const formData = new FormData();
-            formData.append(assetImage ? "file" : "model", file?.originFileObj);
-            formData.append("ImageType", 1);
-            const onSuccess = response => {// x = 1;
-                paths = [...imageSet, {
-                    url: response.data || response.imageUrl,
-                    thumbUrl: response.data,
-                    status: "done",
-                    name: file.name,
-                    uid: file.uid
-                }];
-                onChange({
-                    name: name || "images", value: [...imageSet, {
-                        url: response.data || response.imageUrl,
-                        thumbUrl: response.data,
-                        status: "done",
-                        name: file.name,
-                        uid: file.uid
-                    }]
-                });
-            };
-            const onFail = err => {
-                errorMessage(err.data?.title || err.data?.message || err?.data?.returnMessage[0]);
-            };
-            if (assetImage)
-                await assetUpload(formData, onSuccess, onFail);
-            else
-                await fileUpload(formData, onSuccess, onFail);
-        } else {
-            paths = imageSet.filter(item => item.uid !== file.uid);
-            onChange({name: name || "images", value: [...paths]})
-        }
-        setImageList(fileList);
+const ImageUploadForm = ({setImageUrl}) => {
+    const [selectedFile, setSelectedFile] = useState(null);
+    // const [image, setImage] = useState(null);
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
+        await setSelectedFile(file);
+        await handleUpload(file);
     };
-    const uploadButton = (
-        <div className="uploadImageBox p-2">
-            <div>
-                <img src={cameraIcon} alt="img"/>
-                <div style={{marginTop: 8}}>Upload</div>
-            </div>
-        </div>
-    );
+
+    const handleUpload = async (file) => {
+        try {
+            if (!selectedFile) {
+                console.error('No file selected.');
+                return;
+            }
+
+            const image_url = await uploadImage(file);
+            // setImageUrl(image_url)
+            // Now you can use the imageUrl as needed (e.g., save it to state, send it to the server, etc.)
+
+            // Clear the selected file
+            setSelectedFile(null);
+        } catch (error) {
+            // Handle upload error
+            console.error('File upload failed:', error.message);
+        }
+    };
 
     return (
-        <>
-            <div className="upload-image">
-                <Upload
-                    action={'/'}
-                    fileList={imageList}
-                    onChange={handleChange}
-                    className="upload-list-inline"
-                    listType="picture-card"
-                    accept="image/png, image/jpeg"
-                >
-                    {imageList?.length >= 8 ? null : uploadButton}
-                </Upload>
-            </div>
-        </>
-    )
+        <div>
+            <input type="file" onChange={handleFileChange}/>
+            <GreenButton onClick={handleUpload}>Upload</GreenButton>
+        </div>
+    );
 };
 
-export default UploadImage;
+export default ImageUploadForm;
+
+
+const uploadImage = async (file) => {
+    try {
+        // Create a FormData object
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Make a request to your server endpoint
+        const response = await axios.post('http://localhost:8080/api/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Set the correct content type
+            },
+        });
+
+        // Assuming the server responds with the URL of the uploaded image
+        const imageUrl = response.data.image_url;
+
+        // Log the response (you may want to handle it differently)
+        console.log('File uploaded successfully:', response.data);
+
+        return imageUrl; // Return the URL of the uploaded image
+    } catch (error) {
+        // Handle upload error
+        console.error('File upload failed:', error.message);
+        throw error; // Rethrow the error for the caller to handle
+    }
+};
+
