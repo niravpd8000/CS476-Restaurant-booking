@@ -21,7 +21,7 @@ const MealsSummary = ({restData}) => {
                 {!getRestIdFromToken() && getFromStorage("accessToken") ?
                     <GreenButton onClick={() => navigate(`/table/${id}`)}>Reserve A Table</GreenButton> : <></>}
                 <div>Address: {`${restData?.address?.address}, ${restData?.address?.cityId}, ${restData?.address?.stateId}`}</div>
-                {restData?.averageOrderRating &&
+                {!!restData?.averageOrderRating &&
                     <Rating defaultValue={restData?.averageOrderRating} value={restData?.averageOrderRating} readOnly/>}
             </div>
 

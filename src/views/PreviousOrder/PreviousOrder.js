@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {errorMessage} from "../../utils/common";
 import CircleIcon from '@mui/icons-material/Circle';
+import moment from "moment/moment";
 
 function PreviousOrder({getUserAllOrder, order}) {
 
@@ -32,42 +33,48 @@ function PreviousOrder({getUserAllOrder, order}) {
             onFail
         );
     };
-    console.log(orderList)
     return (
-        <Box p={2} className="previous-order">
-            {orderList.map((order, key) => <Paper key={key} elevation={2}>
-                <Box display="flex" justifyContent="space-between" alignItems="center" p={2}>
-                    <Box flexShrink={1}>
+        <Box p={2} className="previous-order" style={{maxWidth: "800px"}}>
+            <Typography variant="h5" style={{fontWeight: "bold"}}
+                        gutterBottom>My Orders</Typography>
+            {orderList.map((order, key) => <Paper key={key} style={{marginTop: 10}} elevation={2}>
+                <Box display="flex" position={"relative"} justifyContent="space-between" alignItems="center" p={2}>
+                    <Box flexShrink={1} style={{width: "100%", maxWidth: "300px"}}>
                         <Box style={{display: "flex", justifyContent: "space-between"}}>
                             <Typography variant="h5" style={{fontWeight: "bold"}}
                                         gutterBottom>{order?.restaurantName}</Typography>
                             <Typography variant="h5"
-                                        style={{color: order?.status === "Pending" ? "blue" : order?.status === "Accepted" ? "#ff9e00" : "red"}}
+                                        style={{color: order?.status === "Pending" ? "blue" : order?.status === "Accepted" ? "#ff9e00" : order?.status === "Completed" ? "green" : "red"}}
                                         gutterBottom>{order?.status}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center">
                             <img
                                 src={order?.image_url}
                                 alt="Ordered Item" className="previous-order-image"/>
-                            <Box>
-                                <Typography variant="body2">Delivered yesterday - 1003 Broadway Ave</Typography>
-                                <Typography variant="body2">1 Tomato Soup, 1 Side Salad...</Typography>
-                                <Typography variant="body2">See receipt</Typography>
-                            </Box>
+                            {/*<Box>*/}
+                            {/*    <Typography noWrap={true}*/}
+                            {/*                variant="body2">{order?.items?.reduce((sum, product) => sum + product?.item?.name + ", ", "")}</Typography>*/}
+                            {/*</Box>*/}
                         </Box>
                     </Box>
-                    {order?.status === "Completed" ? <Box>
-                        <Typography variant="body2">Please rate your experience</Typography>
+                    {order?.status === "Completed" && order?.rating ? <Box>
+                        <Typography variant="body2">Your Rating</Typography>
                         <Rating
                             name="simple-controlled"
-                            value={rating}
-                            onChange={(event, newValue) => {
-                                setRating(newValue);
-                            }}
+                            readOnly
+                            value={order?.rating}
                         />
                     </Box> : <></>}
                     <Button variant="contained" onClick={() => navigate(`/order-summary/${order?._id}`)} color="primary"
                             className="reorder-button">View</Button>
+                    <div style={{
+                        position: "absolute",
+                        right: "17px",
+                        top: "22px",
+                    }}>
+                        <Typography
+                            variant="body2">{moment(order?.timestamp).format('dddd, MMMM D, h:mm A')}</Typography>
+                    </div>
                 </Box>
             </Paper>)}
         </Box>

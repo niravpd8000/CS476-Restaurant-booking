@@ -38,7 +38,7 @@ function Header({getCart, organization, order}) {
     useEffect(() => {
         if (!getRestIdFromToken() && getFromStorage("accessToken"))
             getCart();
-    }, [organization.loginLoaded, order.createOrderLoading, order.fetchOrderLoading]);
+    }, [organization.loginLoaded]);
 
 
     const handleOpenNavMenu = (event) => {

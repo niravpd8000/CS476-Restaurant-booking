@@ -4,7 +4,7 @@ import "./SignUp.scss";
 import TextField from "../../reusable/TextField";
 import SettingBox from "../../reusable/SettingBox";
 import {Col, Row} from "antd";
-import {errorMessage, validateEmail} from "../../utils/common";
+import {errorMessage, validateEmail, validateMobileNumber} from "../../utils/common";
 import {signup} from "../../redux/modules/authorisation/authorisationActions";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -30,7 +30,7 @@ const SignUp = ({signup}) => {
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
         };
-        if (state.fullName && state.username && state.phone && validateEmail(state.email) && state.password && (state.confirmPassword && state.confirmPassword === state.password))
+        if (state.fullName && state.username && validateMobileNumber(state.phone) && validateEmail(state.email) && state.password && (state.confirmPassword && state.confirmPassword === state.password))
             signup(
                 {...state},
                 onSuccess,
@@ -64,7 +64,7 @@ const SignUp = ({signup}) => {
                         <TextField errorMsg="Enter valid Mobile number"
                                    required label="Phone number"
                                    value={state.phone}
-                                   error={error && !state.phone}
+                                   error={error && !validateMobileNumber(state.phone)}
                                    name="phone"
                                    onChange={(e) => setState({...state, [e.target.name]: e.target.value})}
                                    placeholder="Enter phone number "/>

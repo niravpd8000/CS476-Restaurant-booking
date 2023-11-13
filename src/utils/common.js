@@ -170,6 +170,11 @@ export const getRestIdFromToken = () => {
     return token ? parseJwt(token)?.restaurantId : null;
 };
 
+export const isRestaurantOwner = () => {
+    var token = getFromStorage("accessToken");
+    return !!(token && parseJwt(token)?.restaurantId);
+};
+
 export const downloadFile2 = (dataUrl, filename) => {
     const url = window.URL.createObjectURL(dataUrl);
     const a = document.createElement('a');
@@ -203,4 +208,50 @@ export const cartItemValueExtract = (data) => {
     }
 
     return values.filter(value => value).join(', ');
+};
+
+
+export const createDisabledTime = (timeRange, isTable) => {
+    const format = 'h:mma';
+
+    const startMoment = moment(timeRange.startTime, format);
+    const endMoment = moment(timeRange.endTime, format);
+    if (isTable)
+        endMoment.subtract(30, 'minutes');
+    else
+        endMoment.subtract(15, 'minutes');
+    const duration = moment.duration(timeRange?.estimate_time, 'minutes')
+    return {
+        disabledHours: () => {
+            const hours = Array.from({length: 24}, (_, i) => i);
+            const currentHour = duration.hours() ? moment().add(duration.hours() || 0, 'hours').hours() : moment().hours();
+            if (currentHour >= endMoment.hours()) {
+                return hours;
+            }
+
+            return hours.filter((hour) => hour < currentHour || hour < startMoment.hours() || hour > endMoment.hours());
+        },
+
+        disabledMinutes: (selectedHour) => {
+            const currentMoment = moment().add(timeRange?.estimate_time || 0, 'minutes');
+            const currentHour = currentMoment.hours();
+            const endHour = endMoment.hours();
+            const endMinutes = endMoment.minutes();
+            const selectedHourIsCurrentHour = selectedHour === currentHour;
+
+            if (selectedHourIsCurrentHour) {
+                const currentMinute = currentMoment.minutes();
+                const startMinute = startMoment.minutes();
+
+                return Array.from({length: 60}, (_, i) => i).filter((minute) => minute < Math.max(currentMinute, startMinute));
+            } else if (selectedHour < startMoment.hours() || selectedHour > endMoment.hours() || selectedHour < currentHour) {
+                return Array.from({length: 60}, (_, i) => i);
+            } else if (selectedHour === endHour) {
+                console.log("coming here", endMinutes)
+                return Array.from({length: 60}, (_, i) => i).filter((minute) => minute > endMinutes);
+            } else {
+                return [];
+            }
+        },
+    };
 };

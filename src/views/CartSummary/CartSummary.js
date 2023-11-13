@@ -79,6 +79,7 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
 
     const placeOrder = () => {
         const onSuccess = response => {
+            fetchCart();
             navigate(`/order-summary/${response._id}`)
         };
         const onFail = err => {
@@ -95,7 +96,7 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
                         arrival_time: pickupTime?.toDate()
                     },
                     payment_type: 'cash',
-                    isPickup
+                    isPickUp: isPickup
                 },
                 onSuccess,
                 onFail
@@ -108,7 +109,6 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
     const remainingMinutes = duration?.minutes();
 
     const onChangePickupTime = (time) => {
-        console.log(time?.toDate())
         setPickupTime(time);
     };
     return (
@@ -145,7 +145,7 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
                                 }}>
                                     <Grid item xs={4} className="cart-item-image">
                                         <img
-                                            src={item?.item?.image_url}
+                                            src={item?.item?.image_url || "https://freeiconshop.com/wp-content/uploads/edd/food-outline.png"}
                                             alt="Product"/>
                                     </Grid>
                                     <Grid container item xs={8} style={{padding: "0 10px"}}>
@@ -178,8 +178,10 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
                                     </Grid>
                                 </Grid>
                             )}
-                            <Grid className={"cursor-pointer"} item xs={12} align={"center"} onClick={()=>navigate(`/meals/${restData?.restaurantId}`)}>
-                                <AddIcon style={{color:"#8080c5"}}/><Typography style={{color:"#8080c5"}}>Add more items</Typography>
+                            <Grid className={"cursor-pointer"} item xs={12} align={"center"}
+                                  onClick={() => navigate(`/meals/${restData?.restaurantId}`)}>
+                                <AddIcon style={{color: "#8080c5"}}/><Typography style={{color: "#8080c5"}}>Add
+                                more items</Typography>
                             </Grid>
                         </Paper>
                     </Grid>
@@ -284,7 +286,9 @@ function CartSummary({getCart, updateCart, createOrder, organization}) {
                                     <FormControlLabel disabled value={false} control={<Radio/>}
                                                       label={<><CreditCardIcon style={{marginTop: 5}}
                                                                                fontSize={"large"}/></>}/>
+                                        <Typography style={{color:"red", marginTop:'12px'}} varient={"subtitle1"}>Coming Soon</Typography>
                                 </RadioGroup>
+
                             </Grid>
                         </Paper>
                         <Paper style={{padding: "30px", marginTop: "10px"}}>

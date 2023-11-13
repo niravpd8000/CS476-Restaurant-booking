@@ -3,10 +3,11 @@ import {Spin} from 'antd';
 import "./Loading.scss"
 import {connect} from "react-redux";
 
-const Loading = ({className, mainClass, style, position, center, organization, authorisation}) => {
+const Loading = ({className, mainClass, order, position, center, organization, authorisation}) => {
     const organizationHasLoading = Object.keys(organization || {}).some(key => key.endsWith('Loading') && organization[key] === true);
     const authorisationHasLoading = Object.keys(authorisation || {}).some(key => key.endsWith('Loading') && authorisation[key] === true);
-    if (!authorisationHasLoading && !organizationHasLoading)
+    const orderHasLoading = Object.keys(order || {}).some(key => key.endsWith('Loading') && order[key] === true);
+    if (!authorisationHasLoading && !organizationHasLoading && !orderHasLoading)
         return <></>;
 
     return (
@@ -19,7 +20,8 @@ const Loading = ({className, mainClass, style, position, center, organization, a
 const mapStateToProps = state => {
     return {
         organization: state.organization,
-        authorisation: state.authorisation
+        authorisation: state.authorisation,
+        order: state.order
     };
 };
 

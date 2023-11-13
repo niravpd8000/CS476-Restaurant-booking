@@ -28,18 +28,19 @@ const Forms = (props) => {
 
 
     return (
-        <div className="organization">
-
-            {currentTab !== 1 && <InputBox
-                loading={loading}
-                title={tab[currentTab].label}
-            >
-                {currentTab === 0 &&
-                    <Overview errorMsg={errorMsg} error={error === currentTab}
-                              manuData={manuData}
-                              onChange={handleChange}/>}
-            </InputBox>}
-            <div style={{display: currentTab === 1 ? "block" : "none"}}>
+        <div className={"justify-content-center d-flex w-100"}>
+            {currentTab !== 1 &&
+                <div className="organization">
+                    <InputBox
+                        loading={loading}
+                        title={tab[currentTab].label}
+                    >
+                        {currentTab === 0 &&
+                            <Overview errorMsg={errorMsg} error={error === currentTab}
+                                      manuData={manuData}
+                                      onChange={handleChange}/>}
+                    </InputBox></div>}
+            <div style={{display: currentTab === 1 ? "block" : "none", width: "100%"}}>
                 <CreateTemplate manuData={manuData} error={error} onChange={handleChange}
                                 setFormBuilder={setFormBuilder}
                                 formBuilder={formBuilder}/>

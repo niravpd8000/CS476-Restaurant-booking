@@ -30,7 +30,6 @@ const ManuCreate = (props) => {
     const isEditMenuPath = /^\/edit-manu\/[a-fA-F0-9]{24}$/.test(location.pathname);
 
     const {id} = useParams();
-    console.log()
     const [state, setState] = useState({
         name: '',
         description: '',
@@ -69,12 +68,12 @@ const ManuCreate = (props) => {
     const createManuControl = () => {
         const onSuccess = data => {
             successMessage(isEditMenuPath ? "Menu Updated Successfully" : "Menu created successfully.");
+            navigate(-1)
         };
         const onFail = err => {
             setErrorMsg(err?.data?.errors);
             errorMessage(err.data?.title || err.data?.message);
         };
-        console.log(formBuilder?.formData)
         createManu({...state, additional_details: JSON.stringify(formBuilder?.formData)}, onSuccess, onFail);
     };
     const getManuByID = () => {
@@ -107,7 +106,7 @@ const ManuCreate = (props) => {
                     </div>}
             </Col>
             <Col xs={24} style={{justifyContent: "center", display: "flex"}}>
-                {isEditMenuPath ? <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
+                {isEditMenuPath ? <Box sx={{bgcolor: 'background.paper'}}>
                         <Tabs value={currentTab} onChange={handleTab} centered>
                             <Tab label="Overview"/>
                             <Tab label="Edit Template"/>
