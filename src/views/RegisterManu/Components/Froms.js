@@ -17,6 +17,7 @@ const Forms = (props) => {
     } = props;
 
     const handleChange = (e) => {
+        console.log(e)
         let {name, value} = e.target ? e.target : e;
         if (name === "price" || name === "estimate_time")
             value = (name === "price" || name === "estimate_time") && value >= 0 ? value : 0;

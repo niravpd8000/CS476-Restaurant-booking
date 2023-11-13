@@ -4,7 +4,7 @@ import {Tab} from '@mui/base/Tab';
 import {TabsList} from '@mui/base/TabsList';
 import {TabPanel} from '@mui/base/TabPanel';
 import {Tabs} from '@mui/base/Tabs';
-import {errorMessage} from "../../utils/common";
+import {confirmDelete, errorMessage} from "../../utils/common";
 import {fetchOrderByRest, updateOrder} from "../../redux/modules/order/orderActions";
 import {cartUpdate} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
@@ -67,7 +67,7 @@ function TableManagement({getOrderByRest, updateOrderStatus}) {
                                     <TableCell align={"center"}>
                                         {moment(order?.pickup_time).format('h:mm A')}
                                     </TableCell>
-                                    <TableCell>{order?.tableDetails?order?.tableDetails?.number_of_people:0}</TableCell>
+                                    <TableCell>{order?.tableDetails ? order?.tableDetails?.number_of_people : 0}</TableCell>
                                     <TableCell align={"center"}>
                                         <Typography variant="body1" style={{
                                             fontWeight: "bold",
@@ -89,7 +89,10 @@ function TableManagement({getOrderByRest, updateOrderStatus}) {
                                         {order?.status === "Pending" ?
                                             <Button style={{width: "100px"}}
                                                     variant="contained"
-                                                    onClick={() => declineOrder(order?._id)}
+                                                    onClick={
+                                                        () => confirmDelete("Are you sure you want to decline this order?",
+                                                            () => declineOrder(order?._id)
+                                                        )}
                                                     color="primary">
                                                 Decline
                                             </Button> :

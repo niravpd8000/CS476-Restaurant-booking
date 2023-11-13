@@ -6,9 +6,11 @@ import {Switch} from "antd";
 
 const Overview = (props) => {
     const {onChange, errorMsg, error, manuData} = props;
+
     return (
         <div className="mt-3">
-            <UploadImage assetImage name="assetImages" imageSet={manuData.assetImage} onChange={onChange}/>
+            <UploadImage assetImage name="assetImages" setImageUrl={(e) => onChange({name: "image_url", value: e})}
+                         imageSet={manuData.assetImage} onChange={onChange}/>
             <TextField required
                        errorMsg={errorMsg?.name || "Dish Name is required"} label="Dish Name"
                        error={errorMsg?.name || (error && !"")}
