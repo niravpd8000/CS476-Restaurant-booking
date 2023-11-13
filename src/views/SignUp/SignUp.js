@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import GreenButton from "../../reusable/GreenButton";
 import "./SignUp.scss";
 import TextField from "../../reusable/TextField";
 import SettingBox from "../../reusable/SettingBox";
 import {Col, Row} from "antd";
-import {errorMessage, isPasswordComplex, validateEmail, validateMobileNumber} from "../../utils/common";
+import {errorMessage, getFromStorage, isPasswordComplex, validateEmail, validateMobileNumber} from "../../utils/common";
 import {signup} from "../../redux/modules/authorisation/authorisationActions";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -21,6 +21,12 @@ const SignUp = ({signup}) => {
         confirmPassword: ""
     });
     const [error, setError] = useState(false);
+
+
+    useEffect(() => {
+        if (getFromStorage("accessToken"))
+            navigate("/")
+    }, []);
 
     const signupControl = () => {
         const onSuccess = response => {

@@ -19,6 +19,7 @@ import OrderManagement from './views/OrderManagementUpdated/OrderManagement';
 import OrderSummary from "./views/OrderSummary/OrderSummary";
 
 const routes = [
+    {path: '/', name: 'Dashboard', auth: "PUBLIC", component: <Dashboard/>},
     {path: '/dashboard', name: 'Dashboard', auth: "PUBLIC", component: <Dashboard/>},
     {
         path: '/restaurant-home/sign-up',

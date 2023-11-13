@@ -1,20 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import CreateRest from "./Create";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {fetchOrgById, fetchOrgManuById} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
-import {errorMessage, getRestIdFromToken} from "../../utils/common";
+import {errorMessage, getFromStorage, getRestIdFromToken} from "../../utils/common";
 
 const RegisterRestaurant = ({fetchOrgById}) => {
     const [restData, setRestData] = useState({});
     const location = useLocation();
     const isEditRestPath = "/restaurant-home/edit" === location.pathname;
-    console.log(isEditRestPath)
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (isEditRestPath)
-        getOrgById();
+            getOrgById();
     }, []);
+
+    useEffect(() => {
+        if (getFromStorage("accessToken"))
+            navigate("/")
+    }, []);
+
     const getOrgById = () => {
         const onSuccess = response => {
             setRestData(response);
