@@ -4,12 +4,11 @@ import "./SignUp.scss";
 import TextField from "../../reusable/TextField";
 import SettingBox from "../../reusable/SettingBox";
 import {Col, Row} from "antd";
-import {errorMessage, validateEmail, validateMobileNumber} from "../../utils/common";
+import {errorMessage, isPasswordComplex, validateEmail, validateMobileNumber} from "../../utils/common";
 import {signup} from "../../redux/modules/authorisation/authorisationActions";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {Grid, Typography} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import {Typography} from "@mui/material";
 
 const SignUp = ({signup}) => {
     const navigate = useNavigate();
@@ -30,7 +29,7 @@ const SignUp = ({signup}) => {
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
         };
-        if (state.fullName && state.username && validateMobileNumber(state.phone) && validateEmail(state.email) && state.password && (state.confirmPassword && state.confirmPassword === state.password))
+        if (state.fullName && state.username && validateMobileNumber(state.phone) && validateEmail(state.email) && isPasswordComplex(state.password) && (state.confirmPassword && state.confirmPassword === state.password))
             signup(
                 {...state},
                 onSuccess,
@@ -76,14 +75,15 @@ const SignUp = ({signup}) => {
                                    name="email"
                                    onChange={(e) => setState({...state, [e.target.name]: e.target.value})}
                                    placeholder="Enter Email"/>
-                        <TextField errorMsg="Enter valid Password"
-                                   type="password"
-                                   required label="Password"
-                                   value={state.password}
-                                   error={error && !state.password}
-                                   name="password"
-                                   onChange={(e) => setState({...state, [e.target.name]: e.target.value})}
-                                   placeholder="Enter password"/>
+                        <TextField
+                            errorMsg={!isPasswordComplex(state.password) ? "Password doesn't meet complexity requirements" : "Enter password"}
+                            error={error && !isPasswordComplex(state.password)}
+                            type="password"
+                            required label="Password"
+                            value={state.password}
+                            name="password"
+                            onChange={(e) => setState({...state, [e.target.name]: e.target.value})}
+                            placeholder="Enter password"/>
                         <TextField
                             errorMsg={state.confirmPassword && state.confirmPassword !== state.password ? "Confirm Password Doesn't Match" : "Enter valid Confirm Password"}
                             type="password"
@@ -95,7 +95,9 @@ const SignUp = ({signup}) => {
                             placeholder="Enter Confirm password"/>
                         <div align="center">
                             <GreenButton className='btn-signIn' onClick={signupControl}>Sign Up</GreenButton>
-                            <Typography style={{color:"blue", marginTop:5}} onClick={() => navigate('/restaurant-home/sign-up')}>Register a Restaurant</Typography>
+                            <Typography style={{color: "blue", marginTop: 5}}
+                                        onClick={() => navigate('/restaurant-home/sign-up')}>Register a
+                                Restaurant</Typography>
                         </div>
                     </div>
 

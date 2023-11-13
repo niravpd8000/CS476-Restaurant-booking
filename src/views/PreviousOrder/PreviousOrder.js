@@ -6,7 +6,7 @@ import './PreviousOrder.css';
 import {fetchOrder, fetchOrderByUser} from "../../redux/modules/order/orderActions";
 import {cartUpdate} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {errorMessage} from "../../utils/common";
 import CircleIcon from '@mui/icons-material/Circle';
 import moment from "moment/moment";
@@ -15,14 +15,14 @@ function PreviousOrder({getUserAllOrder, order}) {
 
     const navigate = useNavigate();
     const [orderList, setOrderList] = useState([]);
-    const [rating, setRating] = React.useState(0);
-
+    const location = useLocation();
+    const isMyReservationPath = "/my-reservation" === location.pathname;
     useEffect(() => {
         getOrderList();
-    }, []);
+    }, [isMyReservationPath]);
     const getOrderList = () => {
         const onSuccess = response => {
-            setOrderList(response);
+            setOrderList(response.filter(item=>item.isPickUp!==isMyReservationPath));
         };
         const onFail = err => {
             errorMessage(err.data?.title || err.data?.message);
@@ -36,7 +36,7 @@ function PreviousOrder({getUserAllOrder, order}) {
     return (
         <Box p={2} className="previous-order" style={{maxWidth: "800px"}}>
             <Typography variant="h5" style={{fontWeight: "bold"}}
-                        gutterBottom>My Orders</Typography>
+                        gutterBottom>{!isMyReservationPath?"My Pickup Orders": "My Reservations"}</Typography>
             {orderList.map((order, key) => <Paper key={key} style={{marginTop: 10}} elevation={2}>
                 <Box display="flex" position={"relative"} justifyContent="space-between" alignItems="center" p={2}>
                     <Box flexShrink={1} style={{width: "100%", maxWidth: "300px"}}>

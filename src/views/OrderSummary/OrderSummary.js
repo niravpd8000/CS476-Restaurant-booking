@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import {Button, Rating, Typography} from '@mui/material';
 import {useNavigate, useParams} from "react-router-dom";
 import {
-    cartItemValueExtract,
+    cartItemValueExtract, confirmDelete,
     errorMessage,
     getRestIdFromToken,
     isRestaurantOwner,
@@ -120,14 +120,16 @@ function OrderSummary({getOrder, updateOrderStatus, order, submitFeedback}) {
                             <Typography variant="body1" style={{fontWeight: "bold"}}>Payment Type</Typography>
                             <Typography variant="body2">{orderData?.payment_type}</Typography>
                         </Grid>
-                        {!orderData?.isPickUp &&orderData?.tableDetails &&orderData?.tableDetails?.number_of_people ?
+                        {!orderData?.isPickUp && orderData?.tableDetails && orderData?.tableDetails?.number_of_people ?
                             <Grid item xs={12} style={{justifyContent: "space-between", display: "flex"}}>
                                 <Typography variant="body1" style={{fontWeight: "bold"}}>Number of People</Typography>
-                                {orderData?.rating ? <Typography variant="body2">{orderData?.tableDetails?.number_of_people }</Typography> :
+                                {orderData?.rating ? <Typography
+                                        variant="body2">{orderData?.tableDetails?.number_of_people}</Typography> :
                                     <Typography variant="body2">{orderData?.rating}</Typography>}
                             </Grid> : <></>}
                         <Grid item xs={12} style={{justifyContent: "space-between", display: "flex"}}>
-                            <Typography variant="body1" style={{fontWeight: "bold"}}>{!orderData?.isPickUp &&orderData?.tableDetails &&orderData?.tableDetails?.number_of_people?"Reservstion Time":"Pick Up Time"}</Typography>
+                            <Typography variant="body1"
+                                        style={{fontWeight: "bold"}}>{!orderData?.isPickUp && orderData?.tableDetails && orderData?.tableDetails?.number_of_people ? "Reservstion Time" : "Pick Up Time"}</Typography>
                             <Typography variant="body2">
                                 {moment(orderData?.pickup_time).format('dddd, MMMM D, h:mm A')}
                             </Typography>
@@ -153,7 +155,10 @@ function OrderSummary({getOrder, updateOrderStatus, order, submitFeedback}) {
                                         Accept
                                     </Button>
                                     <Button
-                                        onClick={() => updateStatus("Declined")}
+                                        onClick={
+                                            () => confirmDelete("Are you sure you want to decline this order?",
+                                                () => updateStatus("Declined")
+                                            )}
                                         style={{width: "100px"}} variant="contained" color="primary">
                                         Decline
                                     </Button>
@@ -195,7 +200,7 @@ function OrderSummary({getOrder, updateOrderStatus, order, submitFeedback}) {
                                     onChange={(event, newValue) => {
                                         setRating(newValue);
                                     }}
-                                    value={rating||orderData?.rating}
+                                    value={rating || orderData?.rating}
                                 />
                             </Grid>
                             {orderData?.rating ?
