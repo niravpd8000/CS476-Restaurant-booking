@@ -12,8 +12,6 @@ export const orderReducer = handleActions(
         [requestSuccess(OrderConstants.CREATE_ORDER)]: (
             state,
         ) => {
-            state.organization.cartItemQTY = 0;
-            state = {...state};
             return ({
                 ...state,
                 createOrderLoading: false,
@@ -96,16 +94,20 @@ export const orderReducer = handleActions(
             fetchOrderFailure: true,
             fetchOrderLoaded: false
         }),
-        [requestSuccess(OrderConstants.FETCH_ORDER_BY_REST)]: (
-            state
-        ) => ({
-            ...state,
-            fetchOrderByRestLoading: false,
-            fetchOrderByRestFailure: false,
-            fetchOrderByRestLoaded: true
-        })
-        ,
-        [requestPending(OrderConstants.FETCH_ORDER_BY_REST)]: state => ({
+        [requestSuccess(OrderConstants.FETCH_ORDER_BY_REST)]: (state, action) => {
+            const pickup = action?.payload?.filter(item => item?.isPickUp && item?.status === "Pending").length;
+            const reserve = action?.payload?.filter(item => !item?.isPickUp && item?.status === "Pending").length;
+            console.log(pickup)
+            return ({
+                ...state,
+                reserveTableNumber: reserve,
+                pickUpNumber: pickup,
+                fetchOrderByRestLoading: false,
+                fetchOrderByRestFailure: false,
+                fetchOrderByRestLoaded: true
+            })
+        },
+        [requestPending(OrderConstants.FETCH_ORDER_BY_REST)]: (state, action) => ({
             ...state,
             fetchOrderByRestLoading: true,
             fetchOrderByRestFailure: false,
@@ -124,8 +126,7 @@ export const orderReducer = handleActions(
             fetchOrderByUserLoading: false,
             fetchOrderByUserFailure: false,
             fetchOrderByUserLoaded: true
-        })
-        ,
+        }),
         [requestPending(OrderConstants.FETCH_ORDER_BY_USER)]: state => ({
             ...state,
             fetchOrderByUserLoading: true,

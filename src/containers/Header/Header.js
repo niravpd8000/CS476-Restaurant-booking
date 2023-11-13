@@ -19,25 +19,40 @@ import {Logout} from "@mui/icons-material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {cartUpdate, fetchCart} from "../../redux/modules/organization/organizationActions";
 import {connect} from "react-redux";
+import {fetchOrderByRest} from "../../redux/modules/order/orderActions";
 
 const adminPages = [{label: 'Dashboard', goto: "/restaurant-home"}, {label: 'Manage Menu', goto: "manage-manu"},
-    {label: 'Manage reservation', badge: "reserveBadge", goto: "/TableManagement"}, {
-        label: 'Manage Order',
+    {
+        label: 'Manage reservation',
+        badge: "reserveBadge",
+        goto: "/TableManagement",
+        badgeValueKey: 'reserveTableNumber',
+    }, {
+        label: 'Manage Pickup Order',
         badge: "orderBadge",
+        badgeValueKey: 'pickUpNumber',
         goto: "/OrderManagement"
-    }];
+    }, {label: 'Edit Restaurant', goto: "/restaurant-home/edit"}];
 const userPages = [{
-    label: "My Orders",
-    goto: "/previousOrder"
-}, {label: 'My Reservation'}];
+    label: "My Pickup Order",
+    goto: "/my-pickup-order"
+}, {
+    label: 'My Reservation',
+    goto: "/my-reservation"
+}];
 
-function Header({getCart, organization, order}) {
+function Header({getCart, organization, order, getRestOrder}) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!getRestIdFromToken() && getFromStorage("accessToken"))
             getCart();
+    }, [organization.loginLoaded, order.createOrderLoaded]);
+
+    useEffect(() => {
+        if (getRestIdFromToken() && getFromStorage("accessToken"))
+            getRestOrder()
     }, [organization.loginLoaded]);
 
 
@@ -74,42 +89,6 @@ function Header({getCart, organization, order}) {
                         DineEase
                     </Typography>
 
-                    {/*<Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>*/}
-                    {/*    <IconButton*/}
-                    {/*        size="large"*/}
-                    {/*        aria-label="account of current user"*/}
-                    {/*        aria-controls="menu-appbar"*/}
-                    {/*        aria-haspopup="true"*/}
-                    {/*        onClick={handleOpenNavMenu}*/}
-                    {/*        color="inherit"*/}
-                    {/*    >*/}
-                    {/*        <MenuIcon/>*/}
-                    {/*    </IconButton>*/}
-                    {/*    <Menu*/}
-                    {/*        id="menu-appbar"*/}
-                    {/*        anchorEl={anchorElNav}*/}
-                    {/*        anchorOrigin={{*/}
-                    {/*            vertical: 'bottom',*/}
-                    {/*            horizontal: 'left',*/}
-                    {/*        }}*/}
-                    {/*        keepMounted*/}
-                    {/*        transformOrigin={{*/}
-                    {/*            vertical: 'top',*/}
-                    {/*            horizontal: 'left',*/}
-                    {/*        }}*/}
-                    {/*        open={Boolean(anchorElNav)}*/}
-                    {/*        onClose={handleCloseNavMenu}*/}
-                    {/*        sx={{*/}
-                    {/*            display: {xs: 'block', md: 'none'},*/}
-                    {/*        }}*/}
-                    {/*    >*/}
-                    {/*        {userPages.map((page, key) => (*/}
-                    {/*            <MenuItem key={key} onClick={handleCloseNavMenu}>*/}
-                    {/*                <Typography textAlign="center">{page.label}</Typography>*/}
-                    {/*            </MenuItem>*/}
-                    {/*        ))}*/}
-                    {/*    </Menu>*/}
-                    {/*</Box>*/}
                     <DinnerDiningIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                     <Typography
                         variant="h5"
@@ -132,7 +111,7 @@ function Header({getCart, organization, order}) {
                     {getFromStorage("accessToken") && <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {(getRestIdFromToken() ? adminPages : userPages).map((page, key) => (
                             page.badge ?
-                                <Badge key={key} badgeContent={4} color="primary"
+                                <Badge key={key} badgeContent={order[page.badgeValueKey]} color="primary"
                                        style={{marginTop: "16px", marginRight: "8px"}}>
                                     <Button
                                         style={{height: "fit-content", margin: "0"}}
@@ -205,6 +184,7 @@ function Header({getCart, organization, order}) {
 const mapDispatchToProps = dispatch => {
     return {
         getCart: (data, onSuccess, onFail) => dispatch(fetchCart({data, onSuccess, onFail})),
+        getRestOrder: (data, onSuccess, onFail) => dispatch(fetchOrderByRest({data, onSuccess, onFail})),
     };
 };
 

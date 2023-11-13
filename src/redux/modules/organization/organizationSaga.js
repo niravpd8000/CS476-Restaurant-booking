@@ -4,6 +4,8 @@ import {OrganizationConstants} from "./organizationConstants";
 import {config} from "../../../utils/config";
 // APIS
 import * as API from '../../../utils/apiConsts';
+import {getRestIdFromToken} from "../../../utils/common";
+import {OrganisationUpdate} from "../../../utils/apiConsts";
 
 function* createOrganization(action) {
     yield call(
@@ -11,7 +13,7 @@ function* createOrganization(action) {
             type: OrganizationConstants.CREATE_ORGANIZATION,
             method: "POST",
             baseURL: config.URL,
-            url: API.OrganisationInsert,
+            url: getRestIdFromToken() ? API.OrganisationUpdate : API.OrganisationInsert,
             data: action.payload.data,
             success: action.payload.onSuccess,
             fail: action.payload.onFail

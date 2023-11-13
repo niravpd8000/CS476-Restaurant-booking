@@ -1,4 +1,6 @@
 export const initialOrderState = () => ({
+  reserveTableNumber:0,
+  pickUpNumber:0,
   createOrderLoading: false,
   createOrderFailure: false,
   createOrderLoaded: false,

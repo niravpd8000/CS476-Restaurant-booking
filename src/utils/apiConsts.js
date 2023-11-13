@@ -1,4 +1,5 @@
 export const OrganisationInsert = 'rest/signup';
+export const OrganisationUpdate = 'rest/updateRestaurant';
 export const getAllRest = 'rest/getAll';
 export const getRestById = 'rest/getRestaurantById';
 export const getRestManuById = 'rest/getManuByRestaurantId';
