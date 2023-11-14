@@ -43,7 +43,7 @@ export const request = ({
             axios.defaults.headers.common = {
                 "Cache-Control": "no-store",
                 Pragma: "no-cache",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             };
             if (authToken) {
                 axios.defaults.headers.common["x-access-token"] = authToken || "";
@@ -52,6 +52,7 @@ export const request = ({
                 url,
                 method: method.toLowerCase(),
                 headers: headers || {},
+                withCredentials: true,
                 data: data || {},
                 params,
                 onUploadProgress
